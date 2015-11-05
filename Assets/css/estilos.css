@@ -1,0 +1,21 @@
+.titulo
+{
+	text-align: center;
+}
+
+.descuento
+{
+	color:red;
+}
+
+.mensaje_user
+{
+	font-size: xx-large; 
+	font-family: cursive;
+	color:orange;
+}
+
+.error
+{
+	color:red;
+}
