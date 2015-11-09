@@ -21,13 +21,20 @@ class controlador extends CI_Controller {
 		
 		//Comprobacion de si el usuario está dentro o no, cargará una cabecera distinta
 		
-		if(!$this->session->userdata('user'))
+		if(!$this->session->userdata('user') and !$this->session->userdata('rol') )
 		{
 			$cabecera= $this->load->view("cabecerac",$categoria, true); //Carga de cabecera por defecto
 		}
-		else
+		else if ($this->session->userdata('rol')=='usuario')
 		{ 
-			$cabecera= $this->load->view("cabecera_usuario",$categoria, true); //Carga de cabecera que muestra las opciones del usuario
+			$cabecera= $this->load->view("cabecera_usuario",0, true); //Carga de cabecera que muestra las opciones del usuario
+			//$cuerpo=$this->load->view("portada_usuario",0, true);
+		}
+		else if ($this->session->userdata('rol')=='monitor')
+		{
+			//print_r('monitor');
+			$cabecera= $this->load->view("cabecera_monitor",0, true); //Carga de cabecera que muestra las opciones del usuario
+			//$cuerpo=$this->load->view("portada_monitor",0, true);
 		}
 	
 		

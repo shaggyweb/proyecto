@@ -20,12 +20,12 @@
                     		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     			<ul class="nav navbar-nav">
                     				<li>
-										<a href="<?=base_url()?>">Inicio</a>
+										<a href="<?=base_url()?>"> <span class="glyphicon glyphicon-home"></span> Inicio</a>
 </li>
 <li>
 
                 		<li class="dropdown">
-                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorías<span class="caret"></span></a>
+                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span> Categorías<span class="caret"></span></a>
                   				<ul class="dropdown-menu">
                   	
 				
@@ -37,13 +37,16 @@
                   		</ul>
 </li>
 <li>
-<a href="<?=site_url("controlador_eventos/ver_eventos");?>">Eventos</a>
+<a href="<?=site_url("controlador_eventos/ver_eventos");?>"><span class="glyphicon glyphicon-calendar"></span> Eventos</a>
 </li>
 <li>
-<a href="<?=site_url("controlador_usuarios/pagina_login");?>">Ingresar</a>
+<a href="<?=site_url("controlador_usuarios/pagina_login");?>"><span class="glyphicon glyphicon-log-in"></span> Ingresar</a>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>">Zona Privada</a>
+<a href="<?=site_url("controlador_monitor/login_monitor");?>"><span class="glyphicon glyphicon-warning-sign"></span> Zona Privada</a>
+</li>
+<li>
+<a href="<?=site_url("controlador_monitor/prueba_paneles");?>">Prueba</a>
 </li>
 </ul>
 </div>

@@ -10,12 +10,100 @@ require(__DIR__.'/controlador.php');
 class controlador_monitor extends controlador 
 {
 
-	public function pagina_login_monitor()
+	public function login_monitor()
 	{
-		$cuerpo=$this->load->view('login_monitor',0,true);
+		//$cuerpo=$this->load->view('login_monitor',0,true);
+			
+		//$this->Plantilla($cuerpo);
+		
+		
+		//Establecimiento de las reglas de validación
+		$this->form_validation->set_rules('usuario', 'usuario', 'trim|required');
+		$this->form_validation->set_rules('clave', 'clave', 'trim|required');
+		
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+			$usuario = $this->input->post('usuario');
+			$clave = $this->input->post('clave');
+			
+			if($this->mod_monitor->login_monitor($usuario,$clave)==true)
+			{
+				$this->session->set_userdata('user',$usuario);
+				$this->session->set_userdata('rol','monitor');
+				$datos['monitor']=$this->mod_monitor->buscar_monitor($usuario);
+				$cuerpo=$this->load->view('portada_monitor',$datos,true);
+				$this->Plantilla($cuerpo,$datos,true);
+				//redirect(base_url());
+				//print_r("Exito");
+			}
+			{
+				print_r ("No crrecto");
+			}
+		
+		}
+		else
+		{
+		
+			$cuerpo=$this->load->view('login_monitor',0,true);
+		
+			$this->Plantilla($cuerpo);
+		}
+	}
+	
+	public function portada_monitor()
+	{
+		$usuario=$this->session->userdata('user');
+		$datos['monitor']=$this->mod_monitor->buscar_monitor($usuario);
+		$cuerpo=$this->load->view('portada_monitor',$datos,true);
+		
+		$this->Plantilla($cuerpo);
+	}
+	
+	public function ver_monitor()
+	{
+		$usuario=$this->session->userdata('user');
+		$datos['monitor']=$this->mod_monitor->buscar_monitor($usuario);
+		$cuerpo=$this->load->view('datos_per_monitor',$datos,true);
+		
+		$this->Plantilla($cuerpo);
+	}
+	
+	public function logout_monitor()
+	{
+		$this->session->unset_userdata('user'); //cierre de sesión
+		$this->session->unset_userdata('rol'); //cierre de sesión
+		//$this->session->set_userdata('logueado',false); //cierre de sesión
+		redirect(site_url());
+	}
+	
+	public function anadir_jugador()
+	{
+		$categorias['categorias'] = $this->mod_equipos->listar_categorias();
+		
+		//array_unshift($categorias['categorias'], 'Selecciones Categoria');
+		
+		$cuerpo=$this->load->view('anadir_jugador',$categorias,true);
+			
+		$this->Plantilla($cuerpo);
+		
+		
+	
+	}
+	
+	
+	public function prueba_paneles()
+	{
+		$cuerpo=$this->load->view('prueba_paneles',0,true);
 			
 		$this->Plantilla($cuerpo);
 	}
+	
 	/**
 	 * Método que da de alta en la BD de un usuario
 	 */

@@ -6,7 +6,7 @@
 
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('Assets/css/estilos6.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('Assets/css/estilos7.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?= base_url('Assets/css/bootstrap.min.css'); ?>">
 
     <!-- Custom styles for this template -->
@@ -17,6 +17,23 @@
      <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+    
+    <script type="text/javascript">
+  $(document).ready(function(){
+    $("#categorias").change(function(){
+    $.ajax({
+      url:"procesa.php",
+      type: "POST",
+      data:"idmarca="+$("#marca").val(),
+      success: function(opciones){
+        $("#modelo").html(opciones);
+      }
+    })
+  });
+});
+</script>
+    
+  
     
   </head>
 
@@ -30,7 +47,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
     <script src="<?= base_url('Assets/js/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('Assets/js/bootstrap.min.js'); ?>"></script>
     
@@ -40,6 +57,16 @@
         interval: 5000 //changes the speed
     })
     </script>
+     <!-- Jquery Functions -->
+    <script>
+$(document).ready(function(){
+    $("#habilitar").click(function(){
+    	 $(".form-control").removeAttr("disabled");
+    	 $(".btn").removeAttr("disabled");
+    });
+});
+</script>
+    
     
 
   </body>

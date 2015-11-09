@@ -49,6 +49,7 @@ class controlador_usuarios extends controlador
 				
 			$this->Plantilla($cuerpo);*/
 			$this->session->set_userdata('user',true);
+			$this->session->set_userdata('rol','usuario');
 			redirect(base_url());
 			print_r("Exito");
 				
@@ -65,6 +66,7 @@ class controlador_usuarios extends controlador
 	public function logout_usuario()
 	{
 		$this->session->unset_userdata('user'); //cierre de sesión
+		$this->session->unset_userdata('rol'); //cierre de sesión
 		//$this->session->set_userdata('logueado',false); //cierre de sesión
 		redirect(site_url());
 	}

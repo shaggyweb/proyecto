@@ -25,7 +25,7 @@
 			</td><td><?php echo form_error('postal'); ?></td>
 		</tr>
 		<tr>
-			<td>Provincia: </td><td><?=form_dropdown('select_provincias', $provincias, set_value('select_provincias'));?></td>
+			<td>Provincia: </td><td><?=form_dropdown('select_categorias', $categorias, set_value('select_categorias'));?></td>
 		</tr>
 		<tr>
 			<td>Población: </td><td><input type="text" class ="form-control" name="poblacion" value="<?php echo set_value('poblacion');?>"/>

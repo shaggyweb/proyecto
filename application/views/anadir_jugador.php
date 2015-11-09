@@ -3,8 +3,8 @@
     	<div class="box">
         	<div class="col-lg-12">
             	<hr>
-                    <h2 class="intro-text text-center">Login
-                        <strong>Usuario</strong>
+                    <h2 class="intro-text text-center">Nuevo
+                        <strong>Jugador</strong>
                     </h2>
                     <hr>
                     	<img class="img-responsive img-border img-left" src="img/intro-pic.jpg" alt="">
@@ -20,6 +20,21 @@
 						<tr>
 							<td>Contraseña: </td><td><input type="text" class ="form-control" name="clave" value="<?php echo set_value('clave'); ?>"/>
 							</td><td><?php echo form_error('clave'); ?></td>
+						</tr>
+						
+						<tr>
+						<td>
+							
+								<select id="categorias">
+									<option value="0">Seleccione Categoría</option>
+									<?php foreach ($categorias as $cat) : ?>
+									
+									<option value="<?=$cat['idtipo']?>"><?=$cat['nombre_categoria']?></option>
+								
+									<?php endforeach; ?>
+								</select>
+						</td>
+								
 						</tr>
 						<tr><td><br></td></tr>
 						<tr><td align="center" colspan="2"><input type="submit" class="btn btn-success btn-lg btn-block" name="enviar" value="Ingresar"></td></tr>

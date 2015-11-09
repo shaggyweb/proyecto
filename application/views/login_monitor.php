@@ -11,18 +11,18 @@
                     		<hr class="visible-xs">
               <div class="formulario">
               
-              	<form method="post" action="<?=base_url('index.php/controlador_usuarios/login_monitor')?>">
+              	<form method="post" action="<?=base_url('index.php/controlador_monitor/login_monitor')?>">
 					<table align="center">
 						<tr>
-							<td>Usuario: </td><td><input type="text"  class ="form-control" name="nombre" value="<?php echo set_value('nombre'); ?>"/>
-							</td><td><?php echo form_error('nombre'); ?></td>
+							<td>Usuario: </td><td><input type="text"  class ="form-control" name="usuario" value="<?php echo set_value('usuario'); ?>"/>
+							</td><td><?php echo form_error('usuario'); ?></td>
 						</tr>
 						<tr>
-							<td>Contraseña: </td><td><input type="text" class ="form-control" name="apellidos" value="<?php echo set_value('apellidos'); ?>"/>
-							</td><td><?php echo form_error('apellidos'); ?></td>
+							<td>Contraseña: </td><td><input type="text" class ="form-control" name="clave" value="<?php echo set_value('clave'); ?>"/>
+							</td><td><?php echo form_error('clave'); ?></td>
 						</tr>
 						<tr><td><br></td></tr>
-						<tr><td align="center" colspan="2"><input type="submit" class="btn btn-success btn-lg btn-block" name="enviar" value="Enviar"/></td></tr>
+						<tr><td align="center" colspan="2"><input type="submit" class="btn btn-success btn-lg btn-block" name="enviar" value="Ingresar"/></td></tr>
 					</table>
 				</form>
               

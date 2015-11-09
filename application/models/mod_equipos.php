@@ -45,6 +45,28 @@ class mod_equipos extends CI_Model {
 		
 	}
 	
+	function select_categorias()
+	{
+		$consulta = $this->db->get('tipo_equipo');
+		$rs=$consulta->result();
+		
+		$categorias=array();
+		foreach($rs as $reg)
+		{
+		   $categorias[$reg->idtipo]=$reg->nombre_categoria;
+		}
+		return $categorias;
+	}
+	
+	function listar_categorias()
+	{
+		$consulta = $this->db->get('tipo_equipo');
+		// Produce: SELECT * FROM categorias
+		return $consulta->result_array();
+	}
+	
+	
+	
 	
 }
 

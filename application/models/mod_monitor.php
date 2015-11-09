@@ -5,7 +5,7 @@
  * Contiene toda la funcionalidad de los usuarios
  * @author Mario Vilches Nieves
  */
-class mod_usuarios extends CI_Model {
+class mod_monitor extends CI_Model {
 
 	public function __construct()
 	{
@@ -26,11 +26,13 @@ class mod_usuarios extends CI_Model {
 	 * @param string $clave Clave del usuario
 	 * @return boolean true si los datos son correctos para el logueo
 	 */
-	/*function login_monitor($usuario,$clave)
+	function login_monitor($usuario,$clave)
 	{
 		$sql = "select * from monitor where usuario = '".$usuario."' AND clave = '".$clave."'";
 		
 		$query = $this->db->query($sql);
+		//print_r($sql);
+		
 		if($query->num_rows() == 0)
 		{
 			return false;
@@ -40,14 +42,14 @@ class mod_usuarios extends CI_Model {
 			return true;
 		}
 		
-	}/
+	}
 	
 	/**
 	 * Método para buscar un usuario según su nombre de usuario
 	 * @param string $usuario Nombre de usuario a buscar
 	 */
-	function buscar_usuario($usuario){
-		$sql=$this->db->query("select * from usuarios
+	function buscar_monitor($usuario){
+		$sql=$this->db->query("select * from monitor
 				where usuario = \"$usuario\"
 				");
 		
