@@ -20,35 +20,36 @@
                     		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     			<ul class="nav navbar-nav">
                     				<li>
-										<a href="<?=base_url()?>"> <span class="glyphicon glyphicon-home"></span> Inicio</a>
+										<a href="<?=site_url("controlador_monitor/portada_administrador");?>"><span class="glyphicon glyphicon-home"></span> Inicio</a>
 </li>
+<li>
 <li>
 
                 		<li class="dropdown">
-                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span> Categorías<span class="caret"></span></a>
+                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span> Datos<span class="caret"></span></a>
                   				<ul class="dropdown-menu">
                   	
 				
-									<?php foreach ($categoria as $cat) : ?>
-									<li><a href="<?= site_url('/controlador_equipos/ver_equipos_cat/'.$cat['idtipo'])?>"><?=$cat['nombre_categoria']?></a></li>
+									
+									<li><a href="<?=site_url("controlador_monitor/ver_monitor");?>"><span class="glyphicon glyphicon-list-alt"></span> Datos Personales</a></li>
+									<li><a href="#"><span class="glyphicon glyphicon-user"></span> Datos Acceso</a></li>
 								
-									<?php endforeach; ?>
+									
            
                   		</ul>
 </li>
 <li>
-<a href="<?=site_url("controlador_eventos/ver_eventos");?>"><span class="glyphicon glyphicon-calendar"></span> Eventos</a>
+<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-envelope"></span> Admin</a>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/listar_monitores");?>"><span class="glyphicon glyphicon-lock"></span> Monitores</a>
+<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-envelope"></span> Mensajes Privados</a>
 </li>
 <li>
-<a href="<?=site_url("controlador_usuarios/pagina_login");?>"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-calendar"></span> Eventos</a>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/login_monitor");?>"><span class="glyphicon glyphicon-warning-sign"></span> A.Privada</a>
+<a href="<?=site_url("controlador_monitor/logout_monitor");?>"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>
 </li>
-
 </ul>
 </div>
 <!-- /.navbar-collapse -->
@@ -56,3 +57,5 @@
 <!-- /.container -->
 </nav>
 </div>
+
+

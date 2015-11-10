@@ -56,6 +56,13 @@ class mod_monitor extends CI_Model {
 		return $sql->result_array();
 	}
 	
+	function listar_monitores()
+	{
+		$consulta = $this->db->get('monitor');
+		// Produce: SELECT * FROM categorias
+		return $consulta->result_array();
+	}
+	
 	/**
 	 * Método para modificaar los datos de un usuario
 	 * @param integer $cod_usuario Código del usuario a modificar

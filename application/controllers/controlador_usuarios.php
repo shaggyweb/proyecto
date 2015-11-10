@@ -32,26 +32,13 @@ class controlador_usuarios extends controlador
 		
 		if ($this->form_validation->run() == TRUE)
 		{
-			/*$datos['nombre'] = $this->input->post('nombre');
-			$datos['apellidos'] = $this->input->post('apellidos');
-			$datos['dni'] = $this->input->post('dni');
-			$datos['direccion'] = $this->input->post('direccion');
-			$datos['cod_postal'] = $this->input->post('postal');
-			$datos['cod_provincia'] = $this->input->post('select_provincias');
-			$datos['poblacion'] = $this->input->post('poblacion');
-			$datos['usuario'] = $this->input->post('usuario');
-			$datos['correo'] = $this->input->post('email');
-			$datos['clave'] = do_hash($this->input->post('password'),'md5');
-				
-			$this->mod_usuarios->alta_usuario($datos);
-				
-			$cuerpo=$this->load->view('alta_exito',0,true);
-				
-			$this->Plantilla($cuerpo);*/
-			$this->session->set_userdata('user',true);
+			
+			
+			$this->session->set_userdata('user','user');
 			$this->session->set_userdata('rol','usuario');
-			redirect(base_url());
-			print_r("Exito");
+			
+			$cuerpo=$this->load->view('portada_usuario',0,true);
+			$this->Plantilla($cuerpo);
 				
 		}
 		else

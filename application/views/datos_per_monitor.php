@@ -31,15 +31,16 @@
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    	<div name="formulario"></div>
-                    		<form method="post" action="<?=base_url('index.php/controlador_monitor/login_monitor')?>">
+                    	<div name="formulario">
+                    		<form method="post" action="<?=base_url('index.php/controlador_monitor/ver_monitor')?>">
                     			<table class="table table-striped">
 									<tr>
 										
                     
    					
    										<td align="center">Nombre:</td>
-   										<td align="center"><input type="text" class ="form-control" name="usuario" size="10" disabled value="<?=set_value('nombre', $monitor[0]['nombre_monitor']); ?>"/></td>
+   										<td align="center"><input type="text" class ="form-control" name="nombre" disabled value="<?=set_value('nombre', $monitor[0]['nombre_monitor']); ?>"/></td>
+   										<td><?php echo form_error('nombre'); ?></td>
    						
    					
    										
@@ -49,7 +50,8 @@
                     
    					
    										<td align="center">Apellidos:</td>
-   										<td align="center"><input type="text" class ="form-control" name="usuario" size="5" disabled/></td>
+   										<td align="center"><input type="text" class ="form-control" name="apellidos" disabled value="<?=set_value('apellidos', $monitor[0]['apellidos']); ?>"/></td>
+   										<td><?php echo form_error('apellidos'); ?></td>
    						
    					
    										
@@ -59,13 +61,34 @@
                     
    					
    										<td align="center">DNI:</td>
-   										<td align="center"><input type="text" class ="form-control" name="usuario" size="5" disabled/></td>
+   										<td align="center"><input type="text" class ="form-control" name="dni" disabled value="<?=set_value('dni', $monitor[0]['dni']); ?>"/></td>
+   										<td><?php echo form_error('dni'); ?></td>
    						
    					
    										
    									</tr>
-   									<tr><td><input type="submit" class="btn btn-primary" name="enviar" value="Enviar Modificaciones" disabled/></td></tr>
-   									<tr><td><input type="button" id="habilitar" class="btn btn-primary" name="habilitar" value="Modificar Datos"/></td></tr>
+   									<tr>
+										
+                    
+   					
+   										<td align="center">Teléfono:</td>
+   										<td align="center"><input type="text" class ="form-control" name="telefono" disabled value="<?=set_value('telefono', $monitor[0]['telefono']); ?>"/></td>
+   										<td><?php echo form_error('telefono'); ?></td>
+   						
+   					
+   										
+   									</tr>
+   									<tr>
+   										<td align="center">Foto:</td>
+   										<td align="center"><input type="text" class ="form-control" name="foto" disabled value="<?=set_value('foto', $monitor[0]['foto']); ?>"/></td>
+   										<td><?php echo form_error('foto'); ?></td>
+   									
+   									</tr>
+   									<tr>
+   										<td><input type="text" id="fecha" class ="form-control" name="fecha" disabled/></td>
+   									</tr>
+   									<tr><td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="enviar" value="Enviar Modificaciones" disabled/></td></tr>
+   									<tr><td colspan="2" align="center"><input type="button" id="habilitar" class="btn btn-primary" name="habilitar" value="Modificar Datos"/></td></tr>
    								</table>
    							</form>  
    						</div>                 

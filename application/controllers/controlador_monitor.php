@@ -35,12 +35,23 @@ class controlador_monitor extends controlador
 			if($this->mod_monitor->login_monitor($usuario,$clave)==true)
 			{
 				$this->session->set_userdata('user',$usuario);
-				$this->session->set_userdata('rol','monitor');
+				//$this->session->set_userdata('rol','monitor');
 				$datos['monitor']=$this->mod_monitor->buscar_monitor($usuario);
-				$cuerpo=$this->load->view('portada_monitor',$datos,true);
-				$this->Plantilla($cuerpo,$datos,true);
+				$this->session->set_userdata('rol',$datos['monitor'][0]['rol']);
+				if ($this->session->userdata('rol')=='m')
+				{
+					$cuerpo=$this->load->view('portada_monitor',$datos,true);
+					//$this->Plantilla($cuerpo);
+				}
+				else if ($this->session->userdata('rol')=='a')
+				{
+					$cuerpo=$this->load->view('portada_admin',$datos,true);
+					//$this->Plantilla($cuerpo);
+				}
+				
+				$this->Plantilla($cuerpo);
 				//redirect(base_url());
-				//print_r("Exito");
+				//print_r($datos['monitor'][0]['rol']);
 			}
 			{
 				print_r ("No crrecto");
@@ -65,13 +76,44 @@ class controlador_monitor extends controlador
 		$this->Plantilla($cuerpo);
 	}
 	
-	public function ver_monitor()
+	public function portada_administrador()
 	{
 		$usuario=$this->session->userdata('user');
 		$datos['monitor']=$this->mod_monitor->buscar_monitor($usuario);
-		$cuerpo=$this->load->view('datos_per_monitor',$datos,true);
-		
+		$cuerpo=$this->load->view('portada_admin',$datos,true);
+	
 		$this->Plantilla($cuerpo);
+	}
+	
+	public function ver_monitor()
+	{
+		//Establecimiento de las reglas de validación
+		$this->form_validation->set_rules('nombre', 'nombre', 'trim|required');
+		$this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
+		$this->form_validation->set_rules('dni', 'dni', 'trim|required');
+		$this->form_validation->set_rules('telefono', 'telefono', 'trim|required');
+		$this->form_validation->set_rules('foto', 'foto', 'trim|required');
+		
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+			
+		}
+		else
+		{
+			$usuario=$this->session->userdata('user');
+			$datos['monitor']=$this->mod_monitor->buscar_monitor($usuario);
+			$cuerpo=$this->load->view('datos_per_monitor',$datos,true);
+			
+			$this->Plantilla($cuerpo);
+		}
+		
+		
 	}
 	
 	public function logout_monitor()
@@ -100,6 +142,15 @@ class controlador_monitor extends controlador
 	public function prueba_paneles()
 	{
 		$cuerpo=$this->load->view('prueba_paneles',0,true);
+			
+		$this->Plantilla($cuerpo);
+	}
+	
+	public function listar_monitores()
+	{
+		$datos['monitores']=$this->mod_monitor->listar_monitores();
+		
+		$cuerpo=$this->load->view('lista_monitores',$datos,true);
 			
 		$this->Plantilla($cuerpo);
 	}

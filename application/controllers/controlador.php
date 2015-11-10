@@ -30,11 +30,15 @@ class controlador extends CI_Controller {
 			$cabecera= $this->load->view("cabecera_usuario",0, true); //Carga de cabecera que muestra las opciones del usuario
 			//$cuerpo=$this->load->view("portada_usuario",0, true);
 		}
-		else if ($this->session->userdata('rol')=='monitor')
+		else if ($this->session->userdata('rol')=='m')
 		{
 			//print_r('monitor');
 			$cabecera= $this->load->view("cabecera_monitor",0, true); //Carga de cabecera que muestra las opciones del usuario
 			//$cuerpo=$this->load->view("portada_monitor",0, true);
+		}
+		else if ($this->session->userdata('rol')=='a') 
+		{
+			$cabecera= $this->load->view("cabecera_admin",0, true); //Carga de cabecera que muestra las opciones del usuario
 		}
 	
 		
