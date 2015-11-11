@@ -16,6 +16,7 @@
    							<th>APELLIDOS</th>
    							<th>DNI</th>
    							<th>TELÉFONO</th>
+   							<th>E-MAIL</th>
  						</tr>
                   		<?php foreach ($monitores as $moni) : ?>
                   			<tr>
@@ -26,6 +27,8 @@
                   				<td><?=$moni['dni']?></td>
                   			
                   				<td><?=$moni['telefono']?></td>
+                  				
+                  				<td><?=$moni['email']?></td>
                   			</tr>
                   		
                   				

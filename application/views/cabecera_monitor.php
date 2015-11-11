@@ -1,6 +1,6 @@
 <div name="cabecera">
 	<div class="brand">Escuela de Fútbol Onuba</div>
-		<div class="address-bar">3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890</div>
+		<div class="address-bar">Polideportivo Municipal | Corrales | Tlfno 959345678</div>
 
 		<!-- Navigation -->
 			<nav class="navbar navbar-default" role="navigation">
@@ -32,7 +32,7 @@
 				
 									
 									<li><a href="<?=site_url("controlador_monitor/ver_monitor");?>"><span class="glyphicon glyphicon-list-alt"></span> Datos Personales</a></li>
-									<li><a href="#"><span class="glyphicon glyphicon-user"></span> Datos Acceso</a></li>
+									<li><a href="<?=site_url("controlador_monitor/datos_acceso_monitor");?>"><span class="glyphicon glyphicon-user"></span> Datos Acceso</a></li>
 								
 									
            
@@ -45,7 +45,19 @@
 <a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-envelope"></span> Mensajes Privados</a>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-calendar"></span> Eventos</a>
+
+                		<li class="dropdown">
+                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-calendar"></span> Eventos<span class="caret"></span></a>
+                  				<ul class="dropdown-menu">
+                  	
+				
+									
+									<li><a href="<?=site_url("controlador_eventos/anadir_evento");?>"><span class="glyphicon glyphicon-plus-sign"></span> Añadir Evento</a></li>
+									<li><a href="<?=site_url("controlador_eventos/consultar_eventos");?>"><span class="glyphicon glyphicon-zoom-in"></span> Consultar Eventos</a></li>
+								
+									
+           
+                  		</ul>
 </li>
 <li>
 <a href="<?=site_url("controlador_monitor/logout_monitor");?>"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>

@@ -45,6 +45,20 @@ class mod_noticias extends CI_Model {
 		
 	}
 	
+	function select_eventos()
+	{
+
+		$consulta = $this->db->get('tipo_evento');
+		$rs=$consulta->result();
+		
+		$tipo_evento=array();
+		foreach($rs as $reg)
+		{
+			$tipo_evento[$reg->idtipo_evento]=$reg->nombre;
+		}
+		return $tipo_evento;
+	}
+	
 	
 }
 

@@ -53,8 +53,11 @@ class controlador_monitor extends controlador
 				//redirect(base_url());
 				//print_r($datos['monitor'][0]['rol']);
 			}
+			else
 			{
-				print_r ("No crrecto");
+				//print_r ("No crrecto");
+				$cuerpo=$this->load->view('portada',0,true);
+				$this->Plantilla($cuerpo);
 			}
 		
 		}
@@ -92,10 +95,12 @@ class controlador_monitor extends controlador
 		$this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
 		$this->form_validation->set_rules('dni', 'dni', 'trim|required');
 		$this->form_validation->set_rules('telefono', 'telefono', 'trim|required');
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('foto', 'foto', 'trim|required');
 		
 		//Edición de los mensajes de error
 		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
 		
 		//da formato a los errores
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
@@ -112,6 +117,35 @@ class controlador_monitor extends controlador
 			
 			$this->Plantilla($cuerpo);
 		}
+		
+		
+	}
+	
+	public function datos_acceso_monitor()
+	{
+		//Establecimiento de las reglas de validación
+		$this->form_validation->set_rules('usuario', 'usuario', 'trim|required');
+		$this->form_validation->set_rules('clave', 'clave', 'trim|required');
+		
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+				
+		}
+		else
+		{
+			$usuario=$this->session->userdata('user');
+			$datos['monitor']=$this->mod_monitor->buscar_monitor($usuario);
+			$cuerpo=$this->load->view('datos_acceso_monitor',$datos,true);
+				
+			$this->Plantilla($cuerpo);
+		}
+		
 		
 		
 	}
@@ -137,6 +171,8 @@ class controlador_monitor extends controlador
 		
 	
 	}
+	
+	
 	
 	
 	public function prueba_paneles()

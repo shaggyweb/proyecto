@@ -65,6 +65,7 @@ $(document).ready(function(){
     $("#habilitar").click(function(){
     	 $(".form-control").removeAttr("disabled");
     	 $(".btn").removeAttr("disabled");
+    	 $('#habilitar').attr("disabled", true);
     });
 });
 </script>

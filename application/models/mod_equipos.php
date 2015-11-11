@@ -65,7 +65,26 @@ class mod_equipos extends CI_Model {
 		return $consulta->result_array();
 	}
 	
+	function todos_equipos()
+	{
+		$consulta = $this->db->get('equipo');
+		// Produce: SELECT * FROM categorias
+		return $consulta->result_array();
+	}
 	
+	function select_equipos()
+	{
+	
+		$consulta = $this->db->get('equipo');
+		$rs=$consulta->result();
+	
+		$equipo=array();
+		foreach($rs as $reg)
+		{
+			$equipo[$reg->idequipo]=$reg->nombre_eq;
+		}
+		return $equipo;
+	}
 	
 	
 }

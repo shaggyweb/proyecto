@@ -78,6 +78,19 @@
    					
    										
    									</tr>
+   									
+   									<tr>
+										
+                    
+   					
+   										<td align="center">E-Mail:</td>
+   										<td align="center"><input type="text" class ="form-control" name="email" disabled value="<?=set_value('email', $monitor[0]['email']); ?>"/></td>
+   										<td><?php echo form_error('email'); ?></td>
+   						
+   					
+   										
+   									</tr>
+   									
    									<tr>
    										<td align="center">Foto:</td>
    										<td align="center"><input type="text" class ="form-control" name="foto" disabled value="<?=set_value('foto', $monitor[0]['foto']); ?>"/></td>
