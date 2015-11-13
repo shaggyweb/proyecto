@@ -33,7 +33,9 @@
                     <hr>
                     	<div name="formulario">
                     		<form method="post" action="<?=base_url('index.php/controlador_monitor/ver_monitor')?>">
+                    			<input type="hidden" name="idmonitor" value="<?=$monitor[0]['idmonitor']?>"/>
                     			<table class="table table-striped">
+                    				
 									<tr>
 										
                     
@@ -97,9 +99,8 @@
    										<td><?php echo form_error('foto'); ?></td>
    									
    									</tr>
-   									<tr>
-   										<td><input type="text" id="fecha" class ="form-control" name="fecha" disabled/></td>
-   									</tr>
+   									
+   									
    									<tr><td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="enviar" value="Enviar Modificaciones" disabled/></td></tr>
    									<tr><td colspan="2" align="center"><input type="button" id="habilitar" class="btn btn-primary" name="habilitar" value="Modificar Datos"/></td></tr>
    								</table>

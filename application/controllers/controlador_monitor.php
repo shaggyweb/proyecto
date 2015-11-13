@@ -107,7 +107,22 @@ class controlador_monitor extends controlador
 		
 		if ($this->form_validation->run() == TRUE)
 		{
+			$id_monitor=$this->input->post('idmonitor');
+			$data['nombre_monitor'] = $this->input->post('nombre');
+			$data['apellidos'] = $this->input->post('apellidos');
+			$data['dni'] = $this->input->post('dni');
+			$data['telefono'] = $this->input->post('telefono');
+			$data['email'] = $this->input->post('email');
+			$data['foto'] = $this->input->post('foto');
 			
+			if($this->mod_monitor->modificar_monitor($id_monitor,$data))
+			{
+				//$cuerpo=$this->load->view('mod_exito',0,true);
+					
+				//$this->Plantilla($cuerpo);
+				
+				//print_r("Modificacion exitosa");
+			}
 		}
 		else
 		{

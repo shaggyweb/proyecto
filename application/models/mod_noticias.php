@@ -59,6 +59,11 @@ class mod_noticias extends CI_Model {
 		return $tipo_evento;
 	}
 	
+	function nuevo_evento($datos)
+	{
+		$this->db->insert('evento',$datos);
+	}
+	
 	
 }
 

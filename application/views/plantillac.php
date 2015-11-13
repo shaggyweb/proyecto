@@ -33,13 +33,14 @@
 });
 </script>
     
- 
+
   
     
   </head>
 
 
     <body>
+    
 <?= $cabecera?>
 <?= $cuerpo?>
 <?= $pie?>
@@ -68,8 +69,39 @@ $(document).ready(function(){
     	 $('#habilitar').attr("disabled", true);
     });
 });
+
 </script>
     
+<script>
+$(document).ready(function(){
+	  $(".oculto").hide();             
+	  $(".enlace_info").click(function()
+		{
+		  $(".oculto").hide();
+			//alert("dddsds");
+	          var id = $(this).attr("id");
+
+	          //alert(id);
+	            
+	          if (!$("#capa"+ id).is(":visible"))
+		      {
+		          	alert(id);
+	               	$("#capa"+ id).show();
+	               	
+	          	}
+	          	else
+		        {
+	        		$("#capa" + id).hide("slow");                             
+	        		//$(nodo).fadeToggle("fast");
+	        		
+	          }
+	    });
+	});
+
+
+</script>
+
+<!--  <script src="<?= base_url('Assets/js/ocultar.js'); ?>"></script>-->
 
 <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>

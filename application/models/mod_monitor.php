@@ -69,10 +69,10 @@ class mod_monitor extends CI_Model {
 	 * @param array $datos Datos del usuario a modificar
 	 * @return boolean
 	 */
-	function modificar_usuario($cod_usuario, $datos){
-		$this->db->where('cod_usuario', $cod_usuario);
+	function modificar_monitor($id_monitor, $datos){
+		$this->db->where('idmonitor', $id_monitor);
 	
-		if($this->db->update('usuarios', $datos)){
+		if($this->db->update('monitor', $datos)){
 			return true;
 	
 		}  else {

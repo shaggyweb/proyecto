@@ -9,9 +9,11 @@
                     </h2>
                     <hr>
                     <hr class="visible-xs">
+                    <table>
                   	<?php foreach ($equipos as $eq) : ?>
+                  
                   			<tr>
-                  				<td><?=$eq['nombre_eq']?></td>
+                  				<td><a href="#<?=$eq['idequipo']?>" class="enlace_info" id="<?=$eq['idequipo']?>" name="<?=$eq['idequipo']?>"><?=$eq['nombre_eq']?></a></td>
                   				
                   				
                   			</tr>
@@ -19,6 +21,7 @@
                   				
                   			
                   		<?php endforeach;?>
+                  		</table>
                 </div>
             </div>
         </div>
@@ -34,6 +37,20 @@
                     <p>Use as many boxes as you like, and put anything you want in them! They are great for just about anything, the sky's the limit!</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc placerat diam quis nisl vestibulum dignissim. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
                 </div>
+                <?php foreach ($equipos as $eq) : ?>
+                	<div id="capa<?=$eq['idequipo']?>" class="well oculto">
+                		<table>
+                		<tr>
+                  				<td><?=$eq['nombre_eq']?></td>
+                  				
+                  				
+                  			</tr>
+                  		</table>
+                  	</div>
+                  		
+                  				
+                  			
+                  		<?php endforeach;?>
             </div>
         </div>
 

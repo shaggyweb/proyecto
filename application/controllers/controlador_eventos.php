@@ -43,11 +43,11 @@ class controlador_eventos extends controlador {
 		
 		if ($this->form_validation->run() == TRUE)
 		{
-			$datos['idequipo'] = $this->input->post('select_equipo');
-			$datos['tipo_evento'] = $this->input->post('select_evento');
-			$datos['descripcion'] = $this->input->post('descripcion');//
+			$data['idequipo'] = $this->input->post('select_equipo');
+			$data['tipo_evento'] = $this->input->post('select_evento');
+			$data['descripcion'] = $this->input->post('descripcion');
 			
-			$datos['fecha'] = $this->input->post('fecha');
+			//$datos['fecha'] = $this->input->post('fecha');
 			
 			//print_r($datos['fecha']);
 			
@@ -55,8 +55,12 @@ class controlador_eventos extends controlador {
 			$fecha=DateTime::createFromFormat('d/m/Y', $fecha);
 			//$fecha_2=date("Y-m-d", $fecha);
 			$fecha_nueva=$fecha->format('Y-m-d');
-			print_r($fecha_nueva);
-			/*$datos['hora'] = $this->input->post('hora');*/
+			
+			$data['fecha']=$fecha_nueva;
+			$data['hora']=$this->input->post('hora');
+			//print_r($data);
+			$data['hora'] = $this->input->post('hora');
+			$this->mod_noticias->nuevo_evento($data);
 			
 		}
 		else
