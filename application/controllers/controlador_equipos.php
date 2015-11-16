@@ -15,8 +15,12 @@ class controlador_equipos extends controlador {
 		
 		//print_r($datos['equipos']);
 		
+		$datos['jugadores']=$this->mod_equipos->listar_jugadores_cat($cat);
+		
 		$cuerpo = $this->load->view('lista_equipos', $datos , TRUE);
 		
 		$this->Plantilla($cuerpo);
+		
+		//print_r($datos['jugadores']);
 	}
 }

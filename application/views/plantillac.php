@@ -85,7 +85,7 @@ $(document).ready(function(){
 	            
 	          if (!$("#capa"+ id).is(":visible"))
 		      {
-		          	alert(id);
+		          	//alert(id);
 	               	$("#capa"+ id).show();
 	               	
 	          	}

@@ -45,6 +45,19 @@ class mod_equipos extends CI_Model {
 		
 	}
 	
+	function listar_jugadores_cat($categoria)
+	{
+		$this->db->select('*');
+		$this->db->from('jugador');
+		$this->db->join('equipo','jugador.idequipo=equipo.idequipo','INNER');
+		$this->db->where('equipo.tipo_equipo', $categoria);
+		$query = $this->db->get();
+	
+	
+		return $query->result_array();
+	
+	}
+	
 	function select_categorias()
 	{
 		$consulta = $this->db->get('tipo_equipo');

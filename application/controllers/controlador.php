@@ -46,7 +46,7 @@ class controlador extends CI_Controller {
 		$pie= $this->load->view("pie", 0, true);
 	
 		//Creo la plantilla las distintas partes a mostrar
-		$this->load->view('plantillac', array(
+		$this->load->view('plantilla', array(
 				'cabecera' => $cabecera,
 				'cuerpo' => $cuerpo,
 				'pie' => $pie

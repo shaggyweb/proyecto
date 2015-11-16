@@ -10,18 +10,25 @@
                     <hr>
                     <hr class="visible-xs">
                     <table>
-                  	<?php foreach ($equipos as $eq) : ?>
-                  
-                  			<tr>
-                  				<td><a href="#<?=$eq['idequipo']?>" class="enlace_info" id="<?=$eq['idequipo']?>" name="<?=$eq['idequipo']?>"><?=$eq['nombre_eq']?></a></td>
+                    	<tr>
+                  			<?php foreach ($equipos as $eq) : ?>
+                  			
+
+						<td><div class="panel panel-default">
+  							<div class="panel-body">
+    							<a href="#<?=$eq['idequipo']?>" class="enlace_info" id="<?=$eq['idequipo']?>" name="<?=$eq['idequipo']?>"><?=$eq['nombre_eq']?></a>
+  							</div>
+						</div> </td> 
+						                                 			
                   				
-                  				
-                  			</tr>
-                  		
                   				
                   			
-                  		<?php endforeach;?>
-                  		</table>
+                           				
+                  			
+                  	<?php endforeach;?>
+                  	</tr>
+                  	</table>
+                  		
                 </div>
             </div>
         </div>
@@ -30,29 +37,53 @@
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <h2 class="intro-text text-center">Beautiful boxes
-                        <strong>to showcase your content</strong>
+                    <h2 class="intro-text text-center">Plantillas
+                        <strong>Equipos</strong>
                     </h2>
                     <hr>
-                    <p>Use as many boxes as you like, and put anything you want in them! They are great for just about anything, the sky's the limit!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc placerat diam quis nisl vestibulum dignissim. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                </div>
-                <?php foreach ($equipos as $eq) : ?>
-                	<div id="capa<?=$eq['idequipo']?>" class="well oculto">
-                		<table>
-                		<tr>
-                  				<td><?=$eq['nombre_eq']?></td>
-                  				
-                  				
-                  			</tr>
-                  		</table>
-                  	</div>
+                  		<?php foreach ($equipos as $eq) : ?>
+                			<div id="capa<?=$eq['idequipo']?>" class="well oculto">
+                				<div class="panel panel-default">
+                					<div class="panel-heading">
+    									<h3 class="panel-title">Plantilla del Equipo <?=$eq['nombre_eq']?></h3>
+  									</div>
+  									<div class="panel-body">
+                						<table class="table table-bordered">
+                							<tr>
+                								<th>NOMBRE</th>
+                								<th>APELLIDOS</th>
+                								<th>DNI</th>
+                								<th>SEXO</th>
+                								<th>EN LA ESCUELA DESDE EL</th>
+                							</tr>
+                							<?php foreach($jugadores as $jug):?>
+                								<?php if($eq['nombre_eq']==$jug['nombre_eq']):?>
+                		
+                									<tr>
+                  										<td><?=$jug['nombre_jugador']?></td>
+                  										<td><?=$jug['apellidos']?></td>
+                  										<td><?=$jug['dni']?></td>
+                  										<td><?=$jug['sexo']?></td>
+                  										<td><?=date("d-m-Y",strtotime($jug['fecha_crea']))?></td>
+                  									</tr>
+                  								<?php endif ?>
+                  							<?php endforeach;?>
                   		
-                  				
                   			
-                  		<?php endforeach;?>
+                  						</table>
+                  					</div>
+                  			
+                  				</div>
+                  				
+                  			</div>	
+            			<?php endforeach;?> 
+            			
+                </div>
+                
             </div>
         </div>
 
     </div>
     <!-- /.container -->
+    
+  

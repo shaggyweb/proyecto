@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2015 a las 14:41:11
+-- Tiempo de generación: 16-11-2015 a las 13:52:54
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('33399e20a929bd5e6dc96c34ff6166fd', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1446817036, '');
+('10db17517f6d1626fbbf061546e6df4a', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1447678269, '');
 
 -- --------------------------------------------------------
 
@@ -63,8 +63,8 @@ CREATE TABLE IF NOT EXISTS `equipo` (
 --
 
 INSERT INTO `equipo` (`idequipo`, `tipo_equipo`, `nombre_eq`, `descripcion`) VALUES
-(1, 1, 'Benjamín A', 'Descripción Benjamín A'),
-(2, 1, 'Benjamín B', 'Descripción Benjamín A');
+(1, 2, 'Benjamín A', 'Descripción Benjamín A'),
+(2, 2, 'Benjamín B', 'Descripción Benjamín A');
 
 -- --------------------------------------------------------
 
@@ -82,14 +82,36 @@ CREATE TABLE IF NOT EXISTS `evento` (
   PRIMARY KEY (`idevento`),
   KEY `fk_evento_equipo1_idx` (`idequipo`),
   KEY `fk_evento_tipo_evento1_idx` (`tipo_evento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `evento`
 --
 
 INSERT INTO `evento` (`idevento`, `idequipo`, `tipo_evento`, `descripcion`, `fecha`, `hora`) VALUES
-(2, 2, 1, 'Abierto el plazo de matriculación', '2015-11-04', '14:00:00');
+(2, 2, 1, 'Abierto el plazo de matriculación', '2015-11-04', '14:00:00'),
+(3, 1, 1, 'evento añadido', '2015-11-14', '12:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_jugadores`
+--
+
+CREATE TABLE IF NOT EXISTS `historial_jugadores` (
+  `idjugador` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_jugador` varchar(50) NOT NULL,
+  `apellidos_jugador` varchar(60) NOT NULL,
+  `dni` varchar(9) NOT NULL,
+  PRIMARY KEY (`idjugador`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `historial_jugadores`
+--
+
+INSERT INTO `historial_jugadores` (`idjugador`, `nombre_jugador`, `apellidos_jugador`, `dni`) VALUES
+(1, 'jugador1', 'apellidos1', '44202799L');
 
 -- --------------------------------------------------------
 
@@ -110,9 +132,38 @@ CREATE TABLE IF NOT EXISTS `jugador` (
   `telefono` varchar(9) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `idequipo` int(11) NOT NULL,
+  `fecha_crea` date NOT NULL,
   PRIMARY KEY (`idjugador`),
   KEY `fk_jugador_equipo_idx` (`idequipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `jugador`
+--
+
+INSERT INTO `jugador` (`idjugador`, `usuario`, `clave`, `dni`, `nombre_jugador`, `apellidos`, `sexo`, `fecha_nac`, `tutor`, `telefono`, `email`, `idequipo`, `fecha_crea`) VALUES
+(5, 'jugador', 'jugador', '44202799L', 'jugador1', 'apellidos1', NULL, NULL, NULL, NULL, NULL, 1, '2015-11-15'),
+(6, 'dsdsd', 'ccxcx', '44202799L', 'Nuñez', 'dfdfd fggfg', NULL, NULL, NULL, NULL, NULL, 2, '2015-11-15');
+
+--
+-- Disparadores `jugador`
+--
+DROP TRIGGER IF EXISTS `fecha_crea`;
+DELIMITER //
+CREATE TRIGGER `fecha_crea` BEFORE INSERT ON `jugador`
+ FOR EACH ROW BEGIN 
+SET NEW.fecha_crea = CURDATE();
+END
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `historial`;
+DELIMITER //
+CREATE TRIGGER `historial` AFTER DELETE ON `jugador`
+ FOR EACH ROW BEGIN 
+INSERT INTO historial_jugadores (`nombre_jugador`, `apellidos_jugador`,`dni`) VALUES (OLD.nombre_jugador,OLD.apellidos,OLD.dni);
+END
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -128,10 +179,19 @@ CREATE TABLE IF NOT EXISTS `monitor` (
   `apellidos` varchar(45) NOT NULL,
   `dni` varchar(9) DEFAULT NULL,
   `telefono` varchar(9) DEFAULT NULL,
+  `email` varchar(60) NOT NULL,
   `rol` char(1) DEFAULT NULL,
   `foto` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idmonitor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `monitor`
+--
+
+INSERT INTO `monitor` (`idmonitor`, `usuario`, `clave`, `nombre_monitor`, `apellidos`, `dni`, `telefono`, `email`, `rol`, `foto`) VALUES
+(1, 'monitor', 'monitor', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg'),
+(2, 'admin', 'admin', 'administrador', 'ad bbbb', '44202799L', '959636363', 'shaggyweb@gmail.com', 'a', 'foto_admin.jpg');
 
 -- --------------------------------------------------------
 
@@ -163,15 +223,17 @@ CREATE TABLE IF NOT EXISTS `tipo_equipo` (
   `nombre_categoria` varchar(45) NOT NULL,
   `descripcion_cat` varchar(80) NOT NULL,
   PRIMARY KEY (`idtipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `tipo_equipo`
 --
 
 INSERT INTO `tipo_equipo` (`idtipo`, `nombre_categoria`, `descripcion_cat`) VALUES
-(1, 'Benjamín', 'Categoría de equipo formado por alumnos de 9-10 años de edad.'),
-(2, 'Alevín', 'Categoría de equipo formado por alumnos de 11-12 años de edad.');
+(1, 'Pre Benjamín', 'Categoría de equipo formado por alumnos de 7-8 años de edad.'),
+(2, 'Benjamín', 'Categoría de equipo formado por alumnos de 9-10 años de edad.'),
+(3, 'Alevín', 'Categoría de equipo formado por alumnos de 11-12 años de edad.'),
+(4, 'Infantil', 'Categoría de equipo formado por alumnos de 13-14 años de edad.');
 
 -- --------------------------------------------------------
 
