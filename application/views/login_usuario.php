@@ -22,6 +22,8 @@
 							</td><td><?php echo form_error('clave'); ?></td>
 						</tr>
 						<tr><td><br></td></tr>
+						<tr><td align="center" colspan="2"><a href="#">¿Has olvidado tu contraseña?</a></td></tr>
+						<tr><td><br></td></tr>
 						<tr><td align="center" colspan="2"><input type="submit" class="btn btn-success btn-lg btn-block" name="enviar" value="Ingresar"></td></tr>
 					</table>
 				</form>

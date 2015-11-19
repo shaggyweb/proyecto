@@ -56,7 +56,8 @@ class controlador_monitor extends controlador
 			else
 			{
 				//print_r ("No crrecto");
-				$cuerpo=$this->load->view('portada',0,true);
+		
+				$cuerpo=$this->load->view('login_monitor',0,true);
 				$this->Plantilla($cuerpo);
 			}
 		
@@ -93,7 +94,7 @@ class controlador_monitor extends controlador
 		//Establecimiento de las reglas de validación
 		$this->form_validation->set_rules('nombre', 'nombre', 'trim|required');
 		$this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
-		$this->form_validation->set_rules('dni', 'dni', 'trim|required');
+		$this->form_validation->set_rules('dni', 'dni', 'trim|required'|'exact_length[9]|callback_DNI_valido');
 		$this->form_validation->set_rules('telefono', 'telefono', 'trim|required');
 		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('foto', 'foto', 'trim|required');
@@ -101,6 +102,7 @@ class controlador_monitor extends controlador
 		//Edición de los mensajes de error
 		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
 		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
+		$this->form_validation->set_message('DNI_valido', 'Error. Campo %s no válido');
 		
 		//da formato a los errores
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
@@ -136,11 +138,37 @@ class controlador_monitor extends controlador
 		
 	}
 	
+	/**
+	 * Método que valida un DNI
+	 * @param string $str Cadena a validar
+	 * @return boolean true si el DNI introducido es correcto
+	 */
+	public function DNI_valido($str)
+	{
+		$str = trim($str);
+		$str = str_replace("-", "", $str);
+		$str = str_ireplace(" ", "", $str);
+		if (!preg_match("/^[0-9]{7,8}[a-zA-Z]{1}$/", $str))
+		{
+			return FALSE;
+		} else
+		{
+			$n = substr($str, 0, -1);
+			$letter = substr($str, -1);
+			$letter2 = substr("TRWAGMYFPDXBNJZSQVHLCKE", $n % 23, 1);
+			if (strtolower($letter) != strtolower($letter2))
+				return FALSE;
+		}
+		return TRUE;
+	}
+	
+	
 	public function datos_acceso_monitor()
 	{
 		//Establecimiento de las reglas de validación
 		$this->form_validation->set_rules('usuario', 'usuario', 'trim|required');
 		$this->form_validation->set_rules('clave', 'clave', 'trim|required');
+		
 		
 		//Edición de los mensajes de error
 		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
@@ -187,7 +215,157 @@ class controlador_monitor extends controlador
 	
 	}
 	
+	public function anadir_monitor()
+	{
+		//Establecimiento de las reglas de validación
+		$this->form_validation->set_rules('nombre', 'nombre', 'trim|required');
+		$this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
+		$this->form_validation->set_rules('dni', 'dni', 'trim|required'|'exact_length[9]|callback_DNI_valido');
+		$this->form_validation->set_rules('telefono', 'telefono', 'trim|required');
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('rol', 'rol', 'trim|required');
+		//$this->form_validation->set_rules('foto', 'foto', 'trim|required');
 	
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
+		$this->form_validation->set_message('DNI_valido', 'Error. Campo %s no válido');
+	
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+	
+		if ($this->form_validation->run() == TRUE)
+		{
+			/*$id_monitor=$this->input->post('idmonitor');
+			$data['nombre_monitor'] = $this->input->post('nombre');
+			$data['apellidos'] = $this->input->post('apellidos');
+			$data['dni'] = $this->input->post('dni');
+			$data['telefono'] = $this->input->post('telefono');
+			$data['email'] = $this->input->post('email');
+			$data['foto'] = $this->input->post('foto');*/
+				
+			/*if($this->mod_monitor->modificar_monitor($id_monitor,$data))
+			{
+				$cuerpo=$this->load->view('mod_exito',0,true);
+					
+				$this->Plantilla($cuerpo);
+	
+				print_r("Modificacion exitosa");
+				
+			}*/
+			
+			//print_r($this->input->post('foto'));
+			
+			$config['upload_path'] = realpath(APPPATH.'/../Assets/img/');
+			$config['allowed_types'] = 'gif|jpg|png';
+			$this->load->library('upload', $config);
+			
+			//print_r($this->upload->data());
+			
+			if (!$this->upload->do_upload('foto'))
+			{
+				//$error = array('error' => $this->upload->display_errors());
+			
+				//$this->load->view('formulario_carga', $error);
+				//print_r($this->upload->display_errors());
+				print_r('Error Imagen');
+				//print_r($this->input->post('foto'));
+			}	
+			else
+			{
+				$file_info = $this->upload->data();
+				$foto = $file_info['file_name'];
+				
+				//print_r($foto);
+				//print_r($data);
+			
+				/*$this->load->view('upload_success', $data);*/
+				
+				$dato['nombre_monitor'] = $this->input->post('nombre');
+				$dato['apellidos'] = $this->input->post('apellidos');
+				$dato['dni'] = $this->input->post('dni');
+				$dato['telefono'] = $this->input->post('telefono');
+				$dato['email'] = $this->input->post('email');
+				$dato['rol'] = $this->input->post('rol');
+				$dato['foto'] = $foto;
+					
+				//print_r($data);
+				$dato['usuario']=$this->crear_nombre_usuario($dato['nombre_monitor'],$dato['dni']);
+				$dato['clave']=$this->generar_clave();
+				$this->mod_monitor->alta_monitor($dato);
+					
+				$this->enviar_datos_acceso($dato['usuario'],$dato['clave'],$dato['email']);
+			}
+		
+				
+		}
+			else
+			{
+				//$usuario=$this->session->userdata('user');
+				//$datos['monitor']=$this->mod_monitor->buscar_monitor($usuario);
+				$cuerpo=$this->load->view('anadir_monitor',0,true);
+			
+				$this->Plantilla($cuerpo);
+			}		
+			
+			
+			
+			//print_r($data);
+			
+		
+	
+	
+	}
+	
+	public function crear_nombre_usuario($cadena_nombre,$cadena_dni)
+	{
+		$nombre_usuario=substr($cadena_nombre,0,4);
+		$nombre_usuario=$nombre_usuario.(substr($cadena_dni,0,4));
+		
+		return $nombre_usuario;
+	}
+	
+	/**
+	 * Método para generar una cadena de caracteres aleatoria para el nuevo password
+	 * La cadena será de cuatro caracteres
+	 * @return string
+	 */
+	public function generar_clave()
+	{
+		$caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"; //posibles caracteres a usar
+		$numerodeletras=6; //numero de letras para generar el texto
+		$cadena = ""; //variable para almacenar la cadena generada
+		for($i=0;$i<$numerodeletras;$i++)
+		{
+		$cadena .= substr($caracteres,rand(0,strlen($caracteres)),1); /*Extraemos 1 caracter de los caracteres
+		entre el rango 0 a Numero de letras que tiene la cadena */
+		}
+		return $cadena;
+	}
+	
+	/**
+	 * Método que envía el nuevo password al usuario
+	 * @param string $nuevo_pass Nuevo password del usuario
+	 * @param array $user Array que contiene los datos del usuario
+	 */
+	public function enviar_datos_acceso($usu,$cla,$email)
+	{
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'mail.iessansebastian.com';
+		$config['smtp_user'] = 'aula4@iessansebastian.com';
+		$config['smtp_pass'] = 'daw2alumno';
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+		$this->email->from('aula4@iessansebastian.com', 'Escuela de Futbol Onuba');
+		$this->email->to($email);
+		$this->email->subject('Datos de Acceso');
+		$this->email->message("<html><body><h2>Su nombre de usuario es: ".$usu."</h2>
+				<h2>Su clave de acceso es: ".$cla."</h2>
+				<h2>Puede cambiar su usuario y clave de acceso en su panel de control.</h2></body></html>");
+			
+		$this->email->send();
+			
+	}
 	
 	
 	public function prueba_paneles()
@@ -273,7 +451,7 @@ class controlador_monitor extends controlador
 		 * @param string $str Cadena a validar
 		 * @return boolean true si el DNI introducido es correcto
 		 */
-		public function DNI_valido($str) 
+		/*public function DNI_valido($str) 
 		{
 			$str = trim($str);
 			$str = str_replace("-", "", $str);
@@ -290,7 +468,7 @@ class controlador_monitor extends controlador
 					return FALSE;
 			}
 			return TRUE;
-		}
+		}*/
 		
 		/**
 		 * Método para loguear al usuario
@@ -502,23 +680,7 @@ class controlador_monitor extends controlador
 		}
 		
 		//http://www.elcodigofuente.com/usando-rand-crear-cadena-aleatoria-806/
-		/**
-		 * Método para generar una cadena de caracteres aleatoria para el nuevo password
-		 * La cadena será de cuatro caracteres
-		 * @return string
-		 */
-		public function generar_cadena()
-		{
-			$caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"; //posibles caracteres a usar
-			$numerodeletras=4; //numero de letras para generar el texto
-			$cadena = ""; //variable para almacenar la cadena generada
-			for($i=0;$i<$numerodeletras;$i++)
-			{
-    			$cadena .= substr($caracteres,rand(0,strlen($caracteres)),1); /*Extraemos 1 caracter de los caracteres 
-				entre el rango 0 a Numero de letras que tiene la cadena */
-			}
-			return $cadena;
-		}
+		
 		
 		/**
 		 * Método que envía el nuevo password al usuario

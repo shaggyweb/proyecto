@@ -113,11 +113,11 @@
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div>Consultar Plantillas</div>
+                                    <div>Añadir Monitor</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="<?=site_url("controlador_monitor/anadir_monitor");?>">
                              <div class="panel-footer">
                                 <span class="pull-left">Acceder</span> 
                            		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>

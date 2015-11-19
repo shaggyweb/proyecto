@@ -6,7 +6,7 @@
 
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('Assets/css/estilos7.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('Assets/css/estilos9.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?= base_url('Assets/css/bootstrap.min.css'); ?>">
 
     <!-- Custom styles for this template -->

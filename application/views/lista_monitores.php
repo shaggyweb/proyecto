@@ -9,32 +9,35 @@
                 <hr>
                 
                 <hr class="visible-xs">
-               
+               	<div class="table-responsive">
                 	<table class="table table-striped">
                 		<tr>
+                			<th>FOTO</th>
    							<th>NOMBRE</th>
    							<th>APELLIDOS</th>
-   							<th>DNI</th>
-   							<th>TELÉFONO</th>
-   							<th>E-MAIL</th>
+   							<th>EN LA ESCUELA DESDE</th>
  						</tr>
                   		<?php foreach ($monitores as $moni) : ?>
                   			<tr>
+                  			
+                  				<td><img class="img-responsive img-thumbnail imagen" src="<?= base_url('/Assets/img/'.$moni['foto'])?>" /></td>
+                  				
                   				<td><?=$moni['nombre_monitor']?></td>
                   				
                   				<td><?=$moni['apellidos']?></td>
                   			
-                  				<td><?=$moni['dni']?></td>
+                  				<td><?=date("d-m-Y",strtotime($moni['fecha_creacion']))?></td>
                   			
-                  				<td><?=$moni['telefono']?></td>
                   				
-                  				<td><?=$moni['email']?></td>
+                  				
+                  				
                   			</tr>
                   		
                   				
                   			
                   		<?php endforeach;?>
                   	</table>
+                 </div>
               
   			</div>
   		</div>

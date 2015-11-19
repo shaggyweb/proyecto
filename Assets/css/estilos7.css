@@ -23,3 +23,8 @@
 .imagen{
 	width: 150px; height: 150px;
 }
+
+table th,td
+{
+	text-align: center;
+}

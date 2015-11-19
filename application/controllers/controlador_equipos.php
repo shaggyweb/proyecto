@@ -21,6 +21,6 @@ class controlador_equipos extends controlador {
 		
 		$this->Plantilla($cuerpo);
 		
-		//print_r($datos['jugadores']);
+		//print_r($datos['equipos']);
 	}
 }

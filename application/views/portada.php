@@ -8,7 +8,6 @@
                         <strong>Eventos</strong>
                     </h2>
                     <hr>
-                    <img class="img-responsive img-border img-left" src="img/intro-pic.jpg" alt="">
                     <hr class="visible-xs">
                   <div class="panel-group" id="accordion">
 <?php foreach ($noticias as $not) : ?>
@@ -17,8 +16,8 @@
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#<?=$not['idevento']?>">
         
-        	<tr>
-        <?=$not['nombre']?>-<?=$not['nombre_eq']?>-<?=$not['fecha']?></a>
+        	
+        <?=$not['nombre']?>-<?=$not['nombre_eq']?>-<?=date("d-m-Y",strtotime($not['fecha']))?></a>
       </h4>
     </div>
     <div id="<?=$not['idevento']?>" class="panel-collapse collapse in">

@@ -8,6 +8,16 @@
                         <strong><?=$equipos[0]['nombre_categoria']?></strong>
                     </h2>
                     <hr>
+                    <div class="panel panel-primary">
+                    	<div class="panel-heading">
+                    	
+                    		Información
+                    	</div>
+                    	<div class="panel-body">
+                    		<strong><?=$equipos[0]['descripcion_cat']?></strong>
+                    	</div>
+                    
+                    </div>
                     <hr class="visible-xs">
                     <table>
                     	<tr>

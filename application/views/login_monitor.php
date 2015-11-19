@@ -20,11 +20,14 @@
 						<tr>
 							<td>Contraseña: </td><td><input type="text" class ="form-control" name="clave" value="<?php echo set_value('clave'); ?>"/>
 							</td><td><?php echo form_error('clave'); ?></td>
-						</tr>
+						</tr>		
+						<tr><td><br></td></tr>
+						<tr><td align="center" colspan="2"><a href="#">¿Has olvidado tu contraseña?</a></td></tr>
 						<tr><td><br></td></tr>
 						<tr><td align="center" colspan="2"><input type="submit" class="btn btn-success btn-lg btn-block" name="enviar" value="Ingresar"/></td></tr>
 					</table>
 				</form>
+				
               
               
               

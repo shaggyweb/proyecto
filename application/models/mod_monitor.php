@@ -45,6 +45,14 @@ class mod_monitor extends CI_Model {
 	}
 	
 	/**
+	 * Método para insertar clientes
+	 * @param array Array de datos del usuario
+	 */
+	function alta_monitor ($data){
+		$this->db->insert('monitor',$data);
+	}
+	
+	/**
 	 * Método para buscar un usuario según su nombre de usuario
 	 * @param string $usuario Nombre de usuario a buscar
 	 */

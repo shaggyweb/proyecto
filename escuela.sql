@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2015 a las 13:52:54
+-- Tiempo de generación: 19-11-2015 a las 22:05:02
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('10db17517f6d1626fbbf061546e6df4a', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1447678269, '');
+('97f1fc617f88a3bcdf3c550e85259af4', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1447966854, 'a:1:{s:9:"user_data";s:0:"";}');
 
 -- --------------------------------------------------------
 
@@ -182,16 +182,32 @@ CREATE TABLE IF NOT EXISTS `monitor` (
   `email` varchar(60) NOT NULL,
   `rol` char(1) DEFAULT NULL,
   `foto` varchar(45) DEFAULT NULL,
+  `fecha_creacion` date NOT NULL,
   PRIMARY KEY (`idmonitor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `monitor`
 --
 
-INSERT INTO `monitor` (`idmonitor`, `usuario`, `clave`, `nombre_monitor`, `apellidos`, `dni`, `telefono`, `email`, `rol`, `foto`) VALUES
-(1, 'monitor', 'monitor', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg'),
-(2, 'admin', 'admin', 'administrador', 'ad bbbb', '44202799L', '959636363', 'shaggyweb@gmail.com', 'a', 'foto_admin.jpg');
+INSERT INTO `monitor` (`idmonitor`, `usuario`, `clave`, `nombre_monitor`, `apellidos`, `dni`, `telefono`, `email`, `rol`, `foto`, `fecha_creacion`) VALUES
+(1, 'monitor', 'monitor', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg', '2015-11-19'),
+(2, 'admin', 'admin', 'administrador', 'ad bbbb', '44202799L', '959636363', 'shaggyweb@gmail.com', 'a', 'foto_admin.jpg', '2015-11-19'),
+(3, 'Manu4123', '0jSu9', 'Manuel', 'García García', '41234567Y', '985232323', 'shaggyweb@gmail.com', 'm', 'foto_hommer.jpg', '2015-11-19'),
+(4, 'Pedr4420', 'J04h2U', 'Pedro', 'Pérez Pérez', '44202799L', '926366369', 'shaggyweb@gmail.com', 'a', 'flanders.png', '2015-11-19'),
+(6, 'Pers4420', '76xVG', 'Personaje', 'Simpsons', '44202799L', '123456789', 'shaggyweb@gmail.com', 'm', 'foto121323.jpg', '2015-11-19');
+
+--
+-- Disparadores `monitor`
+--
+DROP TRIGGER IF EXISTS `fecha_creacion`;
+DELIMITER //
+CREATE TRIGGER `fecha_creacion` BEFORE INSERT ON `monitor`
+ FOR EACH ROW BEGIN 
+SET NEW.fecha_creacion = CURDATE();
+END
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
