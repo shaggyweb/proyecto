@@ -178,7 +178,18 @@ class controlador_monitor extends controlador
 		
 		if ($this->form_validation->run() == TRUE)
 		{
-				
+			$id_monitor=$this->input->post('idmonitor');
+			$data['usuario']=$this->input->post('usuario');
+			$data['clave']=$this->input->post('clave');
+			
+			if($this->mod_monitor->modificar_monitor($id_monitor,$data))
+			{
+				//$cuerpo=$this->load->view('mod_exito',0,true);
+					
+				//$this->Plantilla($cuerpo);
+			
+				//print_r("Modificacion exitosa");
+			}
 		}
 		else
 		{
@@ -290,8 +301,9 @@ class controlador_monitor extends controlador
 				$dato['foto'] = $foto;
 					
 				//print_r($data);
+				$num_letras=8;
 				$dato['usuario']=$this->crear_nombre_usuario($dato['nombre_monitor'],$dato['dni']);
-				$dato['clave']=$this->generar_clave();
+				$dato['clave']=$this->generar_clave($num_letras);
 				$this->mod_monitor->alta_monitor($dato);
 					
 				$this->enviar_datos_acceso($dato['usuario'],$dato['clave'],$dato['email']);
@@ -321,7 +333,8 @@ class controlador_monitor extends controlador
 	{
 		$nombre_usuario=substr($cadena_nombre,0,4);
 		$nombre_usuario=$nombre_usuario.(substr($cadena_dni,0,4));
-		
+		$num_letras=3;
+		$nombre_usuario=$nombre_usuario.($this->generar_clave($num_letras));
 		return $nombre_usuario;
 	}
 	
@@ -330,7 +343,7 @@ class controlador_monitor extends controlador
 	 * La cadena será de cuatro caracteres
 	 * @return string
 	 */
-	public function generar_clave()
+	/*public function generar_clave()
 	{
 		$caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"; //posibles caracteres a usar
 		$numerodeletras=6; //numero de letras para generar el texto
@@ -338,10 +351,10 @@ class controlador_monitor extends controlador
 		for($i=0;$i<$numerodeletras;$i++)
 		{
 		$cadena .= substr($caracteres,rand(0,strlen($caracteres)),1); /*Extraemos 1 caracter de los caracteres
-		entre el rango 0 a Numero de letras que tiene la cadena */
+		entre el rango 0 a Numero de letras que tiene la cadena 
 		}
 		return $cadena;
-	}
+	}*/
 	
 	/**
 	 * Método que envía el nuevo password al usuario
@@ -367,6 +380,87 @@ class controlador_monitor extends controlador
 			
 	}
 	
+	public function reestablecer_pass_monitor()
+	{
+		//Establecimiento de las reglas de validación
+		
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email|callback_Email_No_Valido');
+		
+		
+		
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
+		$this->form_validation->set_message('Email_No_Valido', 'Error. Campo %s no válido');
+		
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+			$email=$this->input->post('email');
+			$query = $this->mod_monitor->comprobar_mail_monitor($email);
+			
+			$monitor=$query['nombre_monitor']." ".$query['apellidos'];
+			
+			$usuario=$query['usuario'];
+			
+			$num_letras_aleatorias=8;
+			
+			$nuevo_pass=$this->generar_clave($num_letras_aleatorias);
+			
+			$cod_monitor=$query['idmonitor'];
+			
+			$this->mod_monitor->nuevo_password($cod_monitor,$nuevo_pass);
+			
+			$this->email_reestablecer_pass($usuario,$nuevo_pass,$monitor,$email);
+			
+			
+			
+			
+		
+		}
+		else
+		{
+			$cuerpo=$this->load->view('reestablecer_pass_monitor',0,true);
+				
+			$this->Plantilla($cuerpo);
+		}
+	}
+	
+	public function Email_No_Valido($email)
+	{
+		$query = $this->mod_monitor->comprobar_mail_monitor($email);
+		if($query)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public function email_reestablecer_pass($usu,$pass,$nombre,$correo)
+	{
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'mail.iessansebastian.com';
+		$config['smtp_user'] = 'aula4@iessansebastian.com';
+		$config['smtp_pass'] = 'daw2alumno';
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+		$this->email->from('aula4@iessansebastian.com', 'Escuela de Futbol Onuba');
+		$this->email->to($correo);
+		$this->email->subject('Nuevo Password');
+		$this->email->message("<html><body><h2>Nuevo Password</h2>
+				<p>".$nombre."</p>
+				<p>Se ha reestablecido la contraseña para el usuario: ".$usu."</p>
+				<p>La nueva contraseña es: ".$pass."</p></body></html>");
+			
+		$this->email->send();
+	}
+	
+	
 	
 	public function prueba_paneles()
 	{
@@ -383,6 +477,46 @@ class controlador_monitor extends controlador
 			
 		$this->Plantilla($cuerpo);
 	}
+	
+	
+	public function mostrar_plantillas()
+	{
+		$this->form_validation->set_rules('equipos', 'equipos', 'trim|required');
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+			$id_equipo=$this->input->post('equipos');
+			
+			$datos['equipo']=$this->mod_equipos->equipo_id($id_equipo);
+			
+			$datos['jugadores']=$this->mod_equipos->jugadores_equipo($id_equipo);
+			
+			$cuerpo=$this->load->view('jugadores_equipo',$datos,true);
+			
+			$this->Plantilla($cuerpo);
+			
+			//print_r($datos);
+		}
+		else
+		{
+			$data['equipos']=$this->mod_equipos->todos_equipos();
+		
+			$cuerpo=$this->load->view('mostrar_plantillas',$data,true);
+			
+			$this->Plantilla($cuerpo);
+		}
+	}
+	
+	/*public function mostrar_plantillas()
+	{
+		$datos['equipos']=$this->mod_equipos->todos_equipos();
+		
+		$cuerpo=$this->load->view('ver_plantillas',$datos,true);
+			
+		$this->Plantilla($cuerpo);
+		
+		
+	}*/
 	
 	/**
 	 * Método que da de alta en la BD de un usuario

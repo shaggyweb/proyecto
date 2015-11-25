@@ -131,5 +131,34 @@ $("#fecha").datepicker();
 });
 
 </script>
+<script type="text/javascript">
+function ajax()
+{
+var conexion;
+if (window.XMLHttpRequest)
+	{
+		conexion=xmlHttp = new XMLHttpRequest();
+	}
+else
+	{
+		conexion=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+conexion.onreadystatechange=function()
+{
+	if(conexion.readyState == 4)
+	{
+		document.getElementById("contenedor"),innerHTML=conexion.responseText;
+	}
+	conexion.open("GET",<?=base_url('index.php/controlador_monitor/mostrar_plantillas?id_equipo')?>)
+}
+  
+}  
+
+</script>
+<script>
+
+
+</script>
+
   </body>
 </html>

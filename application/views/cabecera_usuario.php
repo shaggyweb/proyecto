@@ -20,7 +20,7 @@
                     		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     			<ul class="nav navbar-nav">
                     				<li>
-										<a href="<?=base_url()?>"><span class="glyphicon glyphicon-home"></span> Inicio</a>
+										<a href="<?=site_url("controlador_usuarios/portada_usuario");?>"><span class="glyphicon glyphicon-home"></span> Inicio</a>
 </li>
 <li>
 <li>
@@ -31,8 +31,8 @@
                   	
 				
 									
-									<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Datos Personales</a></li>
-									<li><a href="#"><span class="glyphicon glyphicon-user"></span> Datos Acceso</a></li>
+									<li><a href="<?=site_url("controlador_usuarios/ver_usuario");?>"><span class="glyphicon glyphicon-list-alt"></span> Datos Personales</a></li>
+									<li><a href="<?=site_url("controlador_usuarios/datos_acceso_usuario");?>"><span class="glyphicon glyphicon-user"></span> Datos Acceso</a></li>
 								
 									
            
@@ -42,7 +42,7 @@
 <a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-envelope"></span> Mensajes Privados</a>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-calendar"></span> Eventos</a>
+<a href="<?=site_url("controlador_eventos/eventos_jugador");?>"><span class="glyphicon glyphicon-calendar"></span> Eventos</a>
 </li>
 <li>
 <a href="<?=site_url("controlador_usuarios/logout_usuario");?>"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>

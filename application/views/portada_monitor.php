@@ -103,7 +103,7 @@
                                 			</div>
                             			</div>
                         			</div>
-                        			<a href="#">
+                        			<a href="<?=site_url("controlador_monitor/mostrar_plantillas");?>">
                              		<div class="panel-footer">
                                 		<span class="pull-left">Acceder</span> 
                            				<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>

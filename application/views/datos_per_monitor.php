@@ -32,7 +32,7 @@
                 <div class="col-lg-12">
                     <hr>
                     	<div name="formulario">
-                    		<form method="post" action="<?=base_url('index.php/controlador_monitor/ver_monitor')?>">
+                    		<form method="post" action="<?=base_url('index.php/controlador_monitor/ver_monitor')?>" enctype="multipart/form-data">
                     			<input type="hidden" name="idmonitor" value="<?=$monitor[0]['idmonitor']?>"/>
                     			<table class="table table-striped">
                     				
@@ -95,8 +95,10 @@
    									
    									<tr>
    										<td align="center">Foto:</td>
-   										<td align="center"><input type="text" class ="form-control" name="foto" disabled value="<?=set_value('foto', $monitor[0]['foto']); ?>"/></td>
+   										<td align="center"><input type="text" class ="form-control" name="foto" disabled value="<?=set_value('foto', $monitor[0]['foto']); ?>"/>
+   										<input type="file" name="foto" id="foto" disabled></td>
    										<td><?php echo form_error('foto'); ?></td>
+   										
    									
    									</tr>
    									

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-11-2015 a las 22:05:02
+-- Tiempo de generación: 25-11-2015 a las 14:16:10
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('97f1fc617f88a3bcdf3c550e85259af4', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1447966854, 'a:1:{s:9:"user_data";s:0:"";}');
+('8b7491932b56e5b157bf71bf9fb7b251', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1448457306, 'a:3:{s:9:"user_data";s:0:"";s:4:"user";s:7:"jugador";s:3:"rol";s:7:"usuario";}');
 
 -- --------------------------------------------------------
 
@@ -76,21 +76,24 @@ CREATE TABLE IF NOT EXISTS `evento` (
   `idevento` int(11) NOT NULL AUTO_INCREMENT,
   `idequipo` int(11) NOT NULL,
   `tipo_evento` int(11) NOT NULL,
-  `descripcion` varchar(60) DEFAULT NULL,
+  `descripcion_evento` varchar(200) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
   PRIMARY KEY (`idevento`),
   KEY `fk_evento_equipo1_idx` (`idequipo`),
   KEY `fk_evento_tipo_evento1_idx` (`tipo_evento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `evento`
 --
 
-INSERT INTO `evento` (`idevento`, `idequipo`, `tipo_evento`, `descripcion`, `fecha`, `hora`) VALUES
+INSERT INTO `evento` (`idevento`, `idequipo`, `tipo_evento`, `descripcion_evento`, `fecha`, `hora`) VALUES
 (2, 2, 1, 'Abierto el plazo de matriculación', '2015-11-04', '14:00:00'),
-(3, 1, 1, 'evento añadido', '2015-11-14', '12:00:00');
+(3, 1, 1, 'evento añadido', '2015-11-14', '12:00:00'),
+(4, 2, 1, 'wdsddsd', '2015-11-26', '12:30:00'),
+(5, 1, 1, 'dsffdf', '2015-11-25', '12:45:00'),
+(6, 1, 2, 'Partido de la primera jornada de la copa de benjamines. Lugar Polideportivo de Corrales.', '2015-11-21', '11:15:00');
 
 -- --------------------------------------------------------
 
@@ -142,8 +145,8 @@ CREATE TABLE IF NOT EXISTS `jugador` (
 --
 
 INSERT INTO `jugador` (`idjugador`, `usuario`, `clave`, `dni`, `nombre_jugador`, `apellidos`, `sexo`, `fecha_nac`, `tutor`, `telefono`, `email`, `idequipo`, `fecha_crea`) VALUES
-(5, 'jugador', 'jugador', '44202799L', 'jugador1', 'apellidos1', NULL, NULL, NULL, NULL, NULL, 1, '2015-11-15'),
-(6, 'dsdsd', 'ccxcx', '44202799L', 'Nuñez', 'dfdfd fggfg', NULL, NULL, NULL, NULL, NULL, 2, '2015-11-15');
+(5, 'jugador', 'jugador', '44202799L', 'jugador1', 'apellidos1', 'h', '2014-06-03', 'efdfd', '122323232', 's@gmail.com', 1, '2015-11-15'),
+(6, 'dsdsd', 'sMexiyZb', '44202799L', 'Nuñez', 'dfdfd fggfg', 'm', NULL, NULL, NULL, 'shaggyweb@gmail.com', 2, '2015-11-15');
 
 --
 -- Disparadores `jugador`
@@ -184,22 +187,29 @@ CREATE TABLE IF NOT EXISTS `monitor` (
   `foto` varchar(45) DEFAULT NULL,
   `fecha_creacion` date NOT NULL,
   PRIMARY KEY (`idmonitor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `monitor`
 --
 
 INSERT INTO `monitor` (`idmonitor`, `usuario`, `clave`, `nombre_monitor`, `apellidos`, `dni`, `telefono`, `email`, `rol`, `foto`, `fecha_creacion`) VALUES
-(1, 'monitor', 'monitor', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg', '2015-11-19'),
-(2, 'admin', 'admin', 'administrador', 'ad bbbb', '44202799L', '959636363', 'shaggyweb@gmail.com', 'a', 'foto_admin.jpg', '2015-11-19'),
-(3, 'Manu4123', '0jSu9', 'Manuel', 'García García', '41234567Y', '985232323', 'shaggyweb@gmail.com', 'm', 'foto_hommer.jpg', '2015-11-19'),
-(4, 'Pedr4420', 'J04h2U', 'Pedro', 'Pérez Pérez', '44202799L', '926366369', 'shaggyweb@gmail.com', 'a', 'flanders.png', '2015-11-19'),
-(6, 'Pers4420', '76xVG', 'Personaje', 'Simpsons', '44202799L', '123456789', 'shaggyweb@gmail.com', 'm', 'foto121323.jpg', '2015-11-19');
+(1, 'monitor', 'Wlbx4wK7', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg', '2015-11-19'),
+(2, 'admin', 'admin', 'administrador', 'ad bbbb', '44202799L', '959636363', 'shaggy@gmail.com', 'a', 'foto_admin.jpg', '2015-11-19'),
+(3, 'Manu4123', '0jSu9', 'Manuel', 'García Alcudia', '41234567Y', '985232323', 'shaggywe@gmail.com', 'm', 'foto_hommer.jpg', '2015-11-19'),
+(4, 'Pedr4420', 'J04h2U', 'Pedro', 'Pérez Pérez', '44202799L', '926366369', 'shaggyw@gmail.com', 'a', 'flanders.png', '2015-11-19');
 
 --
 -- Disparadores `monitor`
 --
+DROP TRIGGER IF EXISTS `BorrarMonitor`;
+DELIMITER //
+CREATE TRIGGER `BorrarMonitor` BEFORE DELETE ON `monitor`
+ FOR EACH ROW BEGIN
+    DELETE FROM notificacion_monitor WHERE notificacion_monitor.idmonitor = OLD.idmonitor;
+    END
+//
+DELIMITER ;
 DROP TRIGGER IF EXISTS `fecha_creacion`;
 DELIMITER //
 CREATE TRIGGER `fecha_creacion` BEFORE INSERT ON `monitor`
@@ -261,14 +271,15 @@ CREATE TABLE IF NOT EXISTS `tipo_evento` (
   `idtipo_evento` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`idtipo_evento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `tipo_evento`
 --
 
 INSERT INTO `tipo_evento` (`idtipo_evento`, `nombre`) VALUES
-(1, 'noticia');
+(1, 'noticia'),
+(2, 'partido');
 
 --
 -- Restricciones para tablas volcadas

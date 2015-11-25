@@ -89,6 +89,36 @@ class mod_monitor extends CI_Model {
 		}
 	}
 	
+	function comprobar_mail_monitor($email)
+	{
+		$this->db->where('email',$email);
+		$consulta= $this->db->get('monitor');
+		if($consulta->result())
+		{
+			return $consulta->row_array();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Método para modificar el password de un usuario
+	 * @param string $cod_user Código del usuario
+	 * @param string $nuevo_pass Nuevo Password
+	 */
+	function nuevo_password($cod_mon,$nuevo_pass)
+	{
+	
+		$datos = array(
+				'clave' => $nuevo_pass
+		);
+		$this->db->where('idmonitor', $cod_mon);
+		$this->db->update('monitor', $datos);
+	}
+	
 	/**
 	 * Método para buscar un usuario según su nombre de usuario
 	 * @param string $nombre Nombre de usuario a buscar
@@ -138,18 +168,4 @@ class mod_monitor extends CI_Model {
 		}
 	}
 	
-	/**
-	 * Método para modificar el password de un usuario
-	 * @param string $cod_user Código del usuario
-	 * @param string $nuevo_pass Nuevo Password
-	 */
-	function nuevo_password($cod_user,$nuevo_pass)
-	{
-		
-		$datos = array(
-				'clave' => $nuevo_pass
-		);
-		$this->db->where('cod_usuario', $cod_user);
-		$this->db->update('usuarios', $datos);
-	}
 }

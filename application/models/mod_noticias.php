@@ -65,5 +65,30 @@ class mod_noticias extends CI_Model {
 	}
 	
 	
+	function eventos_jugador()
+	{
+		$this->db->select('*');
+		$this->db->from ('evento');
+		$this->db->join('equipo','evento.idequipo=equipo.idequipo','INNER');
+		$this->db->join('tipo_evento','tipo_evento.idtipo_evento=evento.tipo_evento');
+		$this->db->join('jugador','jugador.idequipo=equipo.idequipo');
+		$this->db->where('idjugador', 5);
+		$this->db->order_by("fecha", "desc");
+		
+		$query = $this->db->get();
+		
+		
+		return $query->result_array();
+		
+	}
+	/*A = id_a, name_a,...
+	 B = id_b, name_b, etc
+	 C = id_c, A_Id_a, B_Id_b*/
+	
+	/*$this->db->select('*');
+	 $this->db->from('A');
+	 $this->db->join(' C',  'A.id_a = C.A.Id_a', 'INNER');
+	 $this->db->join('B', 'B.id_b = C.Id_b', 'INNER');
+	 $result = $this->db->get();*/
 }
 

@@ -45,7 +45,7 @@ class controlador_eventos extends controlador {
 		{
 			$data['idequipo'] = $this->input->post('select_equipo');
 			$data['tipo_evento'] = $this->input->post('select_evento');
-			$data['descripcion'] = $this->input->post('descripcion');
+			$data['descripcion_evento'] = $this->input->post('descripcion');
 			
 			//$datos['fecha'] = $this->input->post('fecha');
 			
@@ -72,5 +72,16 @@ class controlador_eventos extends controlador {
 		}
 		
 		
+	}
+	
+	public function eventos_jugador()
+	{
+		$datos['eventos']=$this->mod_noticias->eventos_jugador();
+		
+		//print_r($datos);
+		
+		$cuerpo = $this->load->view('eventos_jugador', $datos, TRUE);
+		
+		$this->Plantilla($cuerpo);
 	}
 }

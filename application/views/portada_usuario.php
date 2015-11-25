@@ -5,7 +5,7 @@
                 <div class="col-lg-12">
                     <hr>
                     <h2 class="intro-text text-center">Zona Privada del Alumno/a
-                        <strong>"Poner aquí nombre"</strong>
+                        <strong><?=$usuario[0]['nombre_jugador']." ".$usuario[0]['apellidos']?></strong>
                     </h2>
                     <hr>
                     <img class="img-responsive img-border img-left" src="img/intro-pic.jpg" alt="">
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="<?=site_url("controlador_usuarios/ver_usuario");?>">
                         <div class="panel-footer">
                            <span class="pull-left">Acceder</span> 
                            <span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        	<a href="#">
+                        	<a href="<?=site_url("controlador_usuarios/datos_acceso_usuario");?>">
                             <div class="panel-footer">
                                 <span class="pull-left">Acceder</span> 
                            		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="<?=site_url("controlador_eventos/eventos_jugador");?>">
                              <div class="panel-footer">
                                 <span class="pull-left">Acceder</span> 
                            		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>

@@ -12,6 +12,88 @@ class mod_usuarios extends CI_Model {
 		parent::__construct();
 	}
 
+	
+	/**
+	 * Método para logueaar el usuario
+	 * @param string $usuario Nombre del usuario
+	 * @param string $clave Clave del usuario
+	 * @return boolean true si los datos son correctos para el logueo
+	 */
+	function login_usuario($usuario,$clave)
+	{
+		$sql = "select * from jugador where usuario = '".$usuario."' AND clave = '".$clave."'";
+	
+		$query = $this->db->query($sql);
+		//print_r($sql);
+	
+		if($query->num_rows() == 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	
+	}
+	
+	/**
+	* Método para buscar un usuario según su nombre de usuario
+	* @param string $usuario Nombre de usuario a buscar
+	*/
+	function buscar_usuario($usuario){
+		$sql=$this->db->query("select * from jugador
+				where usuario = \"$usuario\"
+				");
+	
+		return $sql->result_array();
+	}
+	
+	
+	function modificar_usuario($id_jugador, $datos){
+		$this->db->where('idjugador', $id_jugador);
+	
+		if($this->db->update('jugador', $datos)){
+			return true;
+	
+		}  else {
+	
+			return false;
+		}
+	}
+	
+	
+	function comprobar_mail_usuario($email)
+	{
+		$this->db->where('email',$email);
+		$consulta= $this->db->get('jugador');
+		if($consulta->result())
+		{
+			return $consulta->row_array();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	/**
+	 * Método para modificar el password de un usuario
+	 * @param string $cod_user Código del usuario
+	 * @param string $nuevo_pass Nuevo Password
+	 */
+	function nuevo_password($cod_user,$nuevo_pass)
+	{
+	
+		$datos = array(
+				'clave' => $nuevo_pass
+		);
+		$this->db->where('idjugador', $cod_user);
+		$this->db->update('jugador', $datos);
+	}
+	
+	
+	
 	/**
 	 * Método para insertar clientes
 	 * @param array Array de datos del usuario
@@ -43,16 +125,7 @@ class mod_usuarios extends CI_Model {
 	}/
 	
 	/**
-	 * Método para buscar un usuario según su nombre de usuario
-	 * @param string $usuario Nombre de usuario a buscar
-	 */
-	function buscar_usuario($usuario){
-		$sql=$this->db->query("select * from usuarios
-				where usuario = \"$usuario\"
-				");
-		
-		return $sql->result_array();
-	}
+	 
 	
 	/**
 	 * Método para modificaar los datos de un usuario
@@ -60,17 +133,7 @@ class mod_usuarios extends CI_Model {
 	 * @param array $datos Datos del usuario a modificar
 	 * @return boolean
 	 */
-	function modificar_usuario($cod_usuario, $datos){
-		$this->db->where('cod_usuario', $cod_usuario);
 	
-		if($this->db->update('usuarios', $datos)){
-			return true;
-	
-		}  else {
-	
-			return false;
-		}
-	}
 	
 	/**
 	 * Método para buscar un usuario según su nombre de usuario
@@ -121,18 +184,5 @@ class mod_usuarios extends CI_Model {
 		}
 	}
 	
-	/**
-	 * Método para modificar el password de un usuario
-	 * @param string $cod_user Código del usuario
-	 * @param string $nuevo_pass Nuevo Password
-	 */
-	function nuevo_password($cod_user,$nuevo_pass)
-	{
-		
-		$datos = array(
-				'clave' => $nuevo_pass
-		);
-		$this->db->where('cod_usuario', $cod_user);
-		$this->db->update('usuarios', $datos);
-	}
+	
 }

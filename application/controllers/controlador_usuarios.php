@@ -32,13 +32,24 @@ class controlador_usuarios extends controlador
 		
 		if ($this->form_validation->run() == TRUE)
 		{
+			$usuario = $this->input->post('usuario');
+			$clave = $this->input->post('clave');
+				
+			if($this->mod_usuarios->login_usuario($usuario,$clave)==true)
+			{
+				$this->session->set_userdata('user',$usuario);
+				$this->session->set_userdata('rol','usuario');
 			
+				$datos['usuario']=$this->mod_usuarios->buscar_usuario($usuario);
 			
-			$this->session->set_userdata('user','user');
-			$this->session->set_userdata('rol','usuario');
-			
-			$cuerpo=$this->load->view('portada_usuario',0,true);
-			$this->Plantilla($cuerpo);
+				$cuerpo=$this->load->view('portada_usuario',$datos,true);
+				$this->Plantilla($cuerpo);
+			}
+			else
+			{
+				$cuerpo=$this->load->view('login_usuario',0,true);
+				$this->Plantilla($cuerpo);
+			}
 				
 		}
 		else
@@ -57,6 +68,217 @@ class controlador_usuarios extends controlador
 		//$this->session->set_userdata('logueado',false); //cierre de sesión
 		redirect(site_url());
 	}
+	
+	
+	public function portada_usuario()
+	{
+		$usuario=$this->session->userdata('user');
+		$datos['usuario']=$this->mod_usuarios->buscar_usuario($usuario);
+		$cuerpo=$this->load->view('portada_usuario',$datos,true);
+	
+		$this->Plantilla($cuerpo);
+	}
+	
+	
+	public function ver_usuario()
+	{
+		//Establecimiento de las reglas de validación
+		$this->form_validation->set_rules('nombre', 'nombre', 'trim|required');
+		$this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
+		$this->form_validation->set_rules('dni', 'dni', 'trim|required'|'exact_length[9]|callback_DNI_valido');
+		$this->form_validation->set_rules('telefono', 'telefono', 'trim|required');
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('tutor', 'tutor', 'trim|required');
+		$this->form_validation->set_rules('fecha', 'fecha', 'trim|required');
+		$this->form_validation->set_rules('sexo', 'sexo', 'trim|required');
+		
+	
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
+		$this->form_validation->set_message('DNI_valido', 'Error. Campo %s no válido');
+	
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+	
+		if ($this->form_validation->run() == TRUE)
+		{
+			$id_jugador=$this->input->post('idusuario');
+			$data['nombre_jugador'] = $this->input->post('nombre');
+			$data['apellidos'] = $this->input->post('apellidos');
+			$data['dni'] = $this->input->post('dni');
+			$data['telefono'] = $this->input->post('telefono');
+			$data['email'] = $this->input->post('email');
+			$data['sexo'] = $this->input->post('sexo');
+			$data['tutor'] = $this->input->post('tutor');
+			$fecha=$this->input->post('fecha');
+			
+			$fecha=$this->input->post('fecha');
+			
+			//print_r($fecha);
+			$fecha=DateTime::createFromFormat('d/m/Y', $fecha);
+			
+			//print_r($fecha);
+			//$fecha_2=date("Y-m-d", $fecha);
+			$fecha_nueva=$fecha->format('Y-m-d');
+			
+			$data['fecha_nac']=$fecha_nueva;
+			
+			//print_r($data);
+				
+			if($this->mod_usuarios->modificar_usuario($id_jugador,$data))
+			{
+				//$cuerpo=$this->load->view('mod_exito',0,true);
+					
+				//$this->Plantilla($cuerpo);
+	
+				//print_r("Modificacion exitosa");
+			}
+		}
+		else
+		{
+			$usuario=$this->session->userdata('user');
+			$datos['usuario']=$this->mod_usuarios->buscar_usuario($usuario);
+			$cuerpo=$this->load->view('datos_por_jugador',$datos,true);
+				
+			$this->Plantilla($cuerpo);
+		}
+	
+	
+	}
+	
+	public function datos_acceso_usuario()
+	{
+		//Establecimiento de las reglas de validación
+		$this->form_validation->set_rules('usuario', 'usuario', 'trim|required');
+		$this->form_validation->set_rules('clave', 'clave', 'trim|required');
+	
+	
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+	
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+	
+		if ($this->form_validation->run() == TRUE)
+		{
+			$id_jugador=$this->input->post('idusuario');
+			$data['usuario']=$this->input->post('usuario');
+			$data['clave']=$this->input->post('clave');
+				
+			if($this->mod_usuarios->modificar_usuario($id_jugador,$data))
+			{
+				//$cuerpo=$this->load->view('mod_exito',0,true);
+					
+				//$this->Plantilla($cuerpo);
+					
+				//print_r("Modificacion exitosa");
+			}
+		}
+		else
+		{
+			$usuario=$this->session->userdata('user');
+			$datos['usuario']=$this->mod_usuarios->buscar_usuario($usuario);
+			$cuerpo=$this->load->view('datos_acceso_usuario',$datos,true);
+	
+			$this->Plantilla($cuerpo);
+		}
+	
+	
+	
+	}
+	
+	
+	public function reestablecer_pass_usuario()
+	{
+		//Establecimiento de las reglas de validación
+	
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email|callback_Email_No_Valido');
+	
+	
+	
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
+		$this->form_validation->set_message('Email_No_Valido', 'Error. Campo %s no válido');
+	
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+	
+		if ($this->form_validation->run() == TRUE)
+		{
+			$email=$this->input->post('email');
+			$query = $this->mod_usuarios->comprobar_mail_usuario($email);
+				
+			$jugador=$query['nombre_jugador']." ".$query['apellidos'];
+				
+			$usuario=$query['usuario'];
+				
+			$num_letras_aleatorias=8;
+				
+			$nuevo_pass=$this->generar_clave($num_letras_aleatorias);
+				
+			$cod_usuario=$query['idjugador'];
+				
+			$this->mod_usuarios->nuevo_password($cod_usuario,$nuevo_pass);
+				
+			$this->email_reestablecer_pass($usuario,$nuevo_pass,$jugador,$email);
+				
+				
+				
+				
+	
+		}
+		else
+		{
+			$cuerpo=$this->load->view('reestablecer_pass_usuario',0,true);
+	
+			$this->Plantilla($cuerpo);
+		}
+	}
+	
+	public function Email_No_Valido($email)
+	{
+		$query = $this->mod_usuarios->comprobar_mail_usuario($email);
+		if($query)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public function email_reestablecer_pass($usu,$pass,$nombre,$correo)
+	{
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'mail.iessansebastian.com';
+		$config['smtp_user'] = 'aula4@iessansebastian.com';
+		$config['smtp_pass'] = 'daw2alumno';
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+		$this->email->from('aula4@iessansebastian.com', 'Escuela de Futbol Onuba');
+		$this->email->to($correo);
+		$this->email->subject('Nuevo Password');
+		$this->email->message("<html><body><h2>Nuevo Password</h2>
+				<p>".$nombre."</p>
+				<p>Se ha reestablecido la contraseña para el usuario: ".$usu."</p>
+				<p>La nueva contraseña es: ".$pass."</p></body></html>");
+			
+		$this->email->send();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Método que da de alta en la BD de un usuario

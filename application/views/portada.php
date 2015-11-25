@@ -21,7 +21,7 @@
       </h4>
     </div>
     <div id="<?=$not['idevento']?>" class="panel-collapse collapse in">
-      <div class="panel-body"><?=$not['descripcion']?></div>
+      <div class="panel-body"><?=$not['descripcion_evento']?></div>
     </div>
   </div>
   <?php endforeach; ?>

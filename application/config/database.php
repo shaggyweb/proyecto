@@ -48,10 +48,13 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
+//$db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
+//$db['default']['username'] = '2daw151ev_mario';
 $db['default']['password'] = '';
+//$db['default']['password'] = 'visrio-44';
 $db['default']['database'] = 'escuela';
+//$db['default']['database'] = '2daw151ev_mario01';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
@@ -63,6 +66,7 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+
 
 
 /* End of file database.php */

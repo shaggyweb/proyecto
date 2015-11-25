@@ -99,6 +99,28 @@ class mod_equipos extends CI_Model {
 		return $equipo;
 	}
 	
+	function jugadores_equipo($id_equipo)
+	{
+		$this->db->where('idequipo',$id_equipo);
+		$consulta= $this->db->get('jugador');
+		
+		return $consulta->result_array();
+		
+	}
+	
+	function equipo_id($id_equipo)
+	{
+		$this->db->where('idequipo',$id_equipo);
+		$consulta= $this->db->get('equipo');
+		if($consulta->result())
+		{
+			return $consulta->row_array();
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 }
 
