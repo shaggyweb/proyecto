@@ -19,11 +19,11 @@ class inicio extends controlador{
 		//llamada al paginador
 		//$datos['paginador']= $this->paginador($url,$total_pagina,$total_filas,$segm);
 
-		$datos['titulo']= "Productos Destacados";
+		//$datos['titulo']= "Productos Destacados";
 
-		$datos['productos']= $this->mod_productos->listar_equipos();
+		//$datos['equipos']= $this->mod_productos->listar_equipos();
 		
-		$datos['noticias']= $this->mod_noticias->listar_noticias();
+		$datos['noticias']= $this->mod_noticias->listar_noticias_portada();
 		
 		//print_r($datos);
 

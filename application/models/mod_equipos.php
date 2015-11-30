@@ -11,10 +11,27 @@ class mod_equipos extends CI_Model {
 		parent::__construct();
 	}
 	
-	/**
-	 * Método para insertar un pedido
-	 * @param array $datos Datos del pedido a insertar
-	 */
+	function listar_equipos()
+	{
+		$consulta = $this->db->get('equipo');
+		// Produce: SELECT * FROM categorias
+		return $consulta->result_array();
+	}
+	
+	function listar_tipo_equipo()
+	{
+		$consulta = $this->db->get('tipo_equipo');
+		// Produce: SELECT * FROM categorias
+		return $consulta->result_array();
+	}
+	
+	function equipo_por_tipo($id_tipo)
+	{
+		$this->db->from('equipo');
+		$this->db->where('tipo_equipo', $id_tipo);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 	/*function listar_noticias()
 	{
 		$this->db->from('evento');
@@ -120,6 +137,15 @@ class mod_equipos extends CI_Model {
 		{
 			return false;
 		}
+	}
+	
+	public function llena_equipos($categoria)
+	{
+		$this->db->where('tipo_equipo',$categoria);
+		$consulta = $this->db->get('equipo');
+		
+		return $consulta->result_array();
+		
 	}
 	
 }

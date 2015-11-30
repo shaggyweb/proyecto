@@ -7,13 +7,23 @@ class controlador_eventos extends controlador {
 	function __construct() {
 		parent::__construct();
 	}
+
 	
-	function ver_eventos()
+	function ver_eventos($inicio=0)
 	{
-		$datos['titulo']="Eventos de la Escuela";
-		$datos['eventos']=$this->mod_noticias->listar_noticias();
+		//parametros para el paginador
+		$url = site_url('controlador_eventos/ver_eventos');
+		$total_pagina = 2;
+		$total_filas = $this->mod_noticias->total_eventos();
+		$segm = 3;
+		//llamada al paginador
+		$datos['paginador'] = $this->paginador($url, $total_pagina, $total_filas, $segm);
 		
-		$cuerpo = $this->load->view('lista_eventos', $datos , TRUE);
+		
+		$datos['titulo']="Eventos de la Escuela";
+		$datos['eventos']=$this->mod_noticias->listar_noticias($inicio, $total_pagina);
+		
+		$cuerpo = $this->load->view('lista_eventos_pag', $datos , TRUE);
 		
 		$this->Plantilla($cuerpo);
 	}

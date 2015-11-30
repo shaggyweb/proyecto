@@ -23,4 +23,20 @@ class controlador_equipos extends controlador {
 		
 		//print_r($datos['equipos']);
 	}
+	
+	public function llena_equipos()
+	{
+		$options = "";
+		if($this->input->post('categoria'))
+		{
+			$categoria = $this->input->post('categoria');
+			$equipos = $this->mod_equipos->llena_equipos($categoria);
+			foreach($equipos as $fila)
+			{
+				?>
+					<option value="<?=$fila['idequipo'] ?>"><?=$fila['nombre_eq'] ?></option>
+				<?php
+				}
+			}
+		}
 }

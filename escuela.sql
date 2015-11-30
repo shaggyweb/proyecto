@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2015 a las 14:16:10
+-- Tiempo de generación: 30-11-2015 a las 21:23:16
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('8b7491932b56e5b157bf71bf9fb7b251', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1448457306, 'a:3:{s:9:"user_data";s:0:"";s:4:"user";s:7:"jugador";s:3:"rol";s:7:"usuario";}');
+('b4619c061a82f2008ff1559efa3149bc', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1448914890, 'a:2:{s:4:"user";s:7:"monitor";s:3:"rol";s:1:"m";}');
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `equipo` (
   `descripcion` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`idequipo`),
   KEY `fk_equipo_tipo_equipo1_idx` (`tipo_equipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `equipo`
@@ -64,7 +64,9 @@ CREATE TABLE IF NOT EXISTS `equipo` (
 
 INSERT INTO `equipo` (`idequipo`, `tipo_equipo`, `nombre_eq`, `descripcion`) VALUES
 (1, 2, 'Benjamín A', 'Descripción Benjamín A'),
-(2, 2, 'Benjamín B', 'Descripción Benjamín A');
+(2, 2, 'Benjamín B', 'Descripción Benjamín A'),
+(3, 1, 'Pre Benjamín A', 'Primer equipo de pre-benjamines.'),
+(4, 3, 'Alevín A', 'Primer equipo de alevines.');
 
 -- --------------------------------------------------------
 
@@ -138,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `jugador` (
   `fecha_crea` date NOT NULL,
   PRIMARY KEY (`idjugador`),
   KEY `fk_jugador_equipo_idx` (`idequipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `jugador`
@@ -146,7 +148,9 @@ CREATE TABLE IF NOT EXISTS `jugador` (
 
 INSERT INTO `jugador` (`idjugador`, `usuario`, `clave`, `dni`, `nombre_jugador`, `apellidos`, `sexo`, `fecha_nac`, `tutor`, `telefono`, `email`, `idequipo`, `fecha_crea`) VALUES
 (5, 'jugador', 'jugador', '44202799L', 'jugador1', 'apellidos1', 'h', '2014-06-03', 'efdfd', '122323232', 's@gmail.com', 1, '2015-11-15'),
-(6, 'dsdsd', 'sMexiyZb', '44202799L', 'Nuñez', 'dfdfd fggfg', 'm', NULL, NULL, NULL, 'shaggyweb@gmail.com', 2, '2015-11-15');
+(6, 'dsdsd', 'sMexiyZb', '44202799L', 'Nuñez', 'dfdfd fggfg', 'm', NULL, NULL, NULL, 'shaggyweb@gmail.com', 2, '2015-11-15'),
+(7, 'nom4420gwG', 'ymuzSWKa', '44202799L', 'nom', 'ape', 'h', '2015-11-18', 'tut', '959231955', 'correo@gmail.com', 2, '2015-11-30'),
+(8, 'nom4420C1R', 'I9qiriqV', '44202799L', 'nom', 'ape', 'h', '2015-11-18', 'tut', '959231955', 'shaggyweb@gmail.com', 2, '2015-11-30');
 
 --
 -- Disparadores `jugador`
@@ -194,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `monitor` (
 --
 
 INSERT INTO `monitor` (`idmonitor`, `usuario`, `clave`, `nombre_monitor`, `apellidos`, `dni`, `telefono`, `email`, `rol`, `foto`, `fecha_creacion`) VALUES
-(1, 'monitor', 'Wlbx4wK7', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg', '2015-11-19'),
+(1, 'monitor', 'monitor', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg', '2015-11-19'),
 (2, 'admin', 'admin', 'administrador', 'ad bbbb', '44202799L', '959636363', 'shaggy@gmail.com', 'a', 'foto_admin.jpg', '2015-11-19'),
 (3, 'Manu4123', '0jSu9', 'Manuel', 'García Alcudia', '41234567Y', '985232323', 'shaggywe@gmail.com', 'm', 'foto_hommer.jpg', '2015-11-19'),
 (4, 'Pedr4420', 'J04h2U', 'Pedro', 'Pérez Pérez', '44202799L', '926366369', 'shaggyw@gmail.com', 'a', 'flanders.png', '2015-11-19');

@@ -214,16 +214,87 @@ class controlador_monitor extends controlador
 	
 	public function anadir_jugador()
 	{
-		$categorias['categorias'] = $this->mod_equipos->listar_categorias();
+		//Establecimiento de las reglas de validación
+		$this->form_validation->set_rules('nombre', 'nombre', 'trim|required');
+		$this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
+		$this->form_validation->set_rules('dni', 'dni', 'trim|required'|'exact_length[9]|callback_DNI_valido');
+		$this->form_validation->set_rules('telefono', 'telefono', 'trim|required');
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('fecha', 'fecha', 'trim|required');
+		$this->form_validation->set_rules('tutor', 'tutor', 'trim|required');
+		$this->form_validation->set_rules('equipos', 'equipos', 'required|callback_control_select');
+		$this->form_validation->set_rules('sexo', 'sexo', 'trim|required');
+		//$this->form_validation->set_rules('foto', 'foto', 'trim|required');
 		
-		//array_unshift($categorias['categorias'], 'Selecciones Categoria');
+		//Edición de los mensajes de error
+		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
+		$this->form_validation->set_message('DNI_valido', 'Error. Campo %s no válido');
+		$this->form_validation->set_message('control_select', 'Error. Campo %s no válido');
 		
-		$cuerpo=$this->load->view('anadir_jugador',$categorias,true);
+		//da formato a los errores
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+			//$equip=$this->input->post('equipos');
+			//print_r($equip);
 			
-		$this->Plantilla($cuerpo);
+			$data['nombre_jugador'] = $this->input->post('nombre');
+			$data['apellidos'] = $this->input->post('apellidos');
+			$data['dni'] = $this->input->post('dni');
+			$data['telefono'] = $this->input->post('telefono');
+			$data['email'] = $this->input->post('email');
+			$data['tutor'] = $this->input->post('tutor');
+			$fecha=$this->input->post('fecha');
+				
+			//print_r($fecha);
+			$fecha=DateTime::createFromFormat('d/m/Y', $fecha);
+				
+			//print_r($fecha);
+			//$fecha_2=date("Y-m-d", $fecha);
+			$fecha_nueva=$fecha->format('Y-m-d');
+				
+			$data['fecha_nac']=$fecha_nueva;
+			$data['sexo']=$this->input->post('sexo');
+			$data['idequipo']=$this->input->post('equipos');
+			
+			
+			$num_letras=8;
+			$data['usuario']=$this->crear_nombre_usuario($data['nombre_jugador'],$data['dni']);
+			$data['clave']=$this->generar_clave($num_letras);
+			$this->mod_usuarios->alta_usuario($data);
+				
+			$this->enviar_datos_acceso($data['usuario'],$data['clave'],$data['email']);
+			//print_r($data);
+			
+			
+		}
+		else
+		{
+			$categorias['categorias'] = $this->mod_equipos->listar_categorias();
+			
+			//array_unshift($categorias['categorias'], 'Selecciones Categoria');
+			
+			$cuerpo=$this->load->view('anadir_jugador',$categorias,true);
+				
+			$this->Plantilla($cuerpo);
+		}
 		
 		
 	
+	}
+	
+	public function control_select($valor_select)
+	{
+		if (($valor_select==0)||($valor_select==""))
+				{
+					return false;
+				}
+		else
+		{
+			return true;
+		}
 	}
 	
 	public function anadir_monitor()

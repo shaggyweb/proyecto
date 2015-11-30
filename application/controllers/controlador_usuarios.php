@@ -111,7 +111,7 @@ class controlador_usuarios extends controlador
 			$data['email'] = $this->input->post('email');
 			$data['sexo'] = $this->input->post('sexo');
 			$data['tutor'] = $this->input->post('tutor');
-			$fecha=$this->input->post('fecha');
+			//$fecha=$this->input->post('fecha');
 			
 			$fecha=$this->input->post('fecha');
 			

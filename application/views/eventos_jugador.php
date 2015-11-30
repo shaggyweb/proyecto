@@ -18,7 +18,7 @@
         			 						<?=$not['nombre']?>-<?=$not['nombre_eq']?>-<?=date("d-m-Y",strtotime($not['fecha']))?></a>
       								</h4>
     							</div>
-    							<div id="<?=$not['idevento']?>" class="panel-collapse collapse in">
+    							<div id="<?=$not['idevento']?>" class="panel-collapse collapse">
       									<div class="panel-body"><?=$not['descripcion_evento']?></div>
     							</div>
   							</div>

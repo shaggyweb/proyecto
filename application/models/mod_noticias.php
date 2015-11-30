@@ -32,17 +32,32 @@ class mod_noticias extends CI_Model {
 	$this->db->join(' C',  'A.id_a = C.A.Id_a', 'INNER');
 	$this->db->join('B', 'B.id_b = C.Id_b', 'INNER');
 	$result = $this->db->get();*/
-	function listar_noticias()
+	function listar_noticias($inicio = 0, $limit = 0)
 	{
 		$this->db->select('*');
 		$this->db->from('equipo');
+		$this->db->limit($limit, $inicio);
 		$this->db->join('evento','equipo.idequipo=evento.idequipo','INNER');
 		$this->db->join('tipo_evento','tipo_evento.idtipo_evento=evento.tipo_evento');
+		$this->db->order_by("fecha", "desc");
 		$query = $this->db->get();
 		
 		
 		return $query->result_array();
 		
+	}
+	
+	function listar_noticias_portada()
+	{
+		$this->db->select('*');
+		$this->db->from('equipo');
+		$this->db->join('evento','equipo.idequipo=evento.idequipo','INNER');
+		$this->db->join('tipo_evento','tipo_evento.idtipo_evento=evento.tipo_evento');
+		$this->db->order_by("fecha", "desc");
+		$query = $this->db->get();
+		
+		
+		return $query->result_array();
 	}
 	
 	function select_eventos()
@@ -80,6 +95,16 @@ class mod_noticias extends CI_Model {
 		
 		return $query->result_array();
 		
+	}
+	
+	/**
+	 * Método para calcular el total de productos de una categoría
+	 * @param string $datos ID de la categoría
+	 */
+	function total_eventos() {
+		$this->db->from('evento');
+		$resultado = $this->db->get();
+		return $resultado->num_rows();
 	}
 	/*A = id_a, name_a,...
 	 B = id_b, name_b, etc

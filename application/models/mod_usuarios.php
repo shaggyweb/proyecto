@@ -38,6 +38,14 @@ class mod_usuarios extends CI_Model {
 	}
 	
 	/**
+	 * Método para insertar clientes
+	 * @param array Array de datos del usuario
+	 */
+	function alta_usuario ($data){
+		$this->db->insert('jugador',$data);
+	}
+	
+	/**
 	* Método para buscar un usuario según su nombre de usuario
 	* @param string $usuario Nombre de usuario a buscar
 	*/
@@ -94,13 +102,7 @@ class mod_usuarios extends CI_Model {
 	
 	
 	
-	/**
-	 * Método para insertar clientes
-	 * @param array Array de datos del usuario
-	 */
-	function alta_usuario ($data){
-		$this->db->insert('usuarios',$data);
-	}
+	
 	
 	/**
 	 * Método para logueaar el usuario

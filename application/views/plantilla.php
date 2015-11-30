@@ -66,6 +66,7 @@ $(document).ready(function(){
     $("#habilitar").click(function(){
     	 $(".form-control").removeAttr("disabled");
     	 $(".btn").removeAttr("disabled");
+    	 $(".foto").removeAttr("disabled");
     	 $('#habilitar').attr("disabled", true);
     });
 });
@@ -155,10 +156,20 @@ conexion.onreadystatechange=function()
 }  
 
 </script>
-<script>
-
-
-</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#categoria").change(function() {
+				$("#categoria option:selected").each(function() {
+					categoria = $('#categoria').val();
+					$.post("<?=base_url('index.php/controlador_equipos/llena_equipos')?>", {
+						categoria : categoria
+					}, function(data) {
+						$("#equipos").html(data);
+					});
+				});
+			})
+		});
+	</script>
 
   </body>
 </html>
