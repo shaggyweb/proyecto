@@ -5,7 +5,7 @@
                 <div class="col-lg-12">
                     <hr>
                     <h2 class="intro-text text-center">Datos Personales del Jugador/a
-                        <strong><?=$usuario[0]['nombre_jugador']?> <?=$usuario[0]['apellidos']?></strong>
+                        <strong><?=$usuario[0]['nombre_jugador']?> <?=$usuario[0]['apellidos_jugador']?></strong>
                         
                     </h2>
                     <hr>
@@ -41,7 +41,7 @@
                     
    					
    										<td align="center">Apellidos:</td>
-   										<td align="center"><input type="text" class ="form-control" name="apellidos" disabled value="<?=set_value('apellidos', $usuario[0]['apellidos']); ?>"/></td>
+   										<td align="center"><input type="text" class ="form-control" name="apellidos" disabled value="<?=set_value('apellidos', $usuario[0]['apellidos_jugador']); ?>"/></td>
    										<td><?php echo form_error('apellidos'); ?></td>
    						
    					

@@ -5,10 +5,10 @@
                 <div class="col-lg-12">
                     <hr>
                     <h2 class="intro-text text-center">Zona Privada del Alumno/a
-                        <strong><?=$usuario[0]['nombre_jugador']." ".$usuario[0]['apellidos']?></strong>
+                        <strong><?=$usuario[0]['nombre_jugador']." ".$usuario[0]['apellidos_jugador']?></strong>
                     </h2>
                     <hr>
-                    <img class="img-responsive img-border img-left" src="img/intro-pic.jpg" alt="">
+                    
                     <hr class="visible-xs">
 
         <div class="row">
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                		<a href="#">
+                		<a href="<?=site_url("controlador_usuarios/lista_mensajes");?>">
                             <div class="panel-footer">
                                 <span class="pull-left">Acceder</span> 
                            		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>

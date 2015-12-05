@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-11-2015 a las 21:23:16
+-- Tiempo de generación: 06-12-2015 a las 00:34:24
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('b4619c061a82f2008ff1559efa3149bc', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1448914890, 'a:2:{s:4:"user";s:7:"monitor";s:3:"rol";s:1:"m";}');
+('4c3d102ec50eb2743be9bd8ece679162', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1449358156, 'a:1:{s:9:"user_data";s:0:"";}');
 
 -- --------------------------------------------------------
 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `jugador` (
   `clave` varchar(45) DEFAULT NULL,
   `dni` varchar(9) DEFAULT NULL,
   `nombre_jugador` varchar(30) NOT NULL,
-  `apellidos` varchar(50) NOT NULL,
+  `apellidos_jugador` varchar(50) NOT NULL,
   `sexo` char(1) DEFAULT NULL,
   `fecha_nac` date DEFAULT NULL,
   `tutor` varchar(60) DEFAULT NULL,
@@ -140,17 +140,18 @@ CREATE TABLE IF NOT EXISTS `jugador` (
   `fecha_crea` date NOT NULL,
   PRIMARY KEY (`idjugador`),
   KEY `fk_jugador_equipo_idx` (`idequipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `jugador`
 --
 
-INSERT INTO `jugador` (`idjugador`, `usuario`, `clave`, `dni`, `nombre_jugador`, `apellidos`, `sexo`, `fecha_nac`, `tutor`, `telefono`, `email`, `idequipo`, `fecha_crea`) VALUES
-(5, 'jugador', 'jugador', '44202799L', 'jugador1', 'apellidos1', 'h', '2014-06-03', 'efdfd', '122323232', 's@gmail.com', 1, '2015-11-15'),
-(6, 'dsdsd', 'sMexiyZb', '44202799L', 'Nuñez', 'dfdfd fggfg', 'm', NULL, NULL, NULL, 'shaggyweb@gmail.com', 2, '2015-11-15'),
+INSERT INTO `jugador` (`idjugador`, `usuario`, `clave`, `dni`, `nombre_jugador`, `apellidos_jugador`, `sexo`, `fecha_nac`, `tutor`, `telefono`, `email`, `idequipo`, `fecha_crea`) VALUES
+(5, 'jugador', 'jugador', '44202799L', 'jugador1', 'apellidos1', 'h', '2014-06-03', 'Andrés Pérez Castillo', '122323232', 's@gmail.com', 1, '2015-11-15'),
+(6, 'dsdsd', 'sMexiyZb', '44202799L', 'Nuñez', 'dfdfd fggfg', 'm', NULL, NULL, NULL, 'shaggyweb8@gmail.com', 2, '2015-11-15'),
 (7, 'nom4420gwG', 'ymuzSWKa', '44202799L', 'nom', 'ape', 'h', '2015-11-18', 'tut', '959231955', 'correo@gmail.com', 2, '2015-11-30'),
-(8, 'nom4420C1R', 'I9qiriqV', '44202799L', 'nom', 'ape', 'h', '2015-11-18', 'tut', '959231955', 'shaggyweb@gmail.com', 2, '2015-11-30');
+(8, 'nom4420C1R', 'I9qiriqV', '44202799L', 'nombre', 'apellidos', 'h', '2015-11-18', 'tutor', '959231955', 'shaggyweb87@gmail.com', 2, '2015-11-30'),
+(9, 'nuev4420Sv3', '0UvcETez', '44202799L', 'nuevo jugador', 'apellidos nuevos', 'h', '2002-12-02', 'nuevo tutor', '959366987', 'shaggyweb@gmail.com', 4, '2015-12-03');
 
 --
 -- Disparadores `jugador`
@@ -189,6 +190,7 @@ CREATE TABLE IF NOT EXISTS `monitor` (
   `email` varchar(60) NOT NULL,
   `rol` char(1) DEFAULT NULL,
   `foto` varchar(45) DEFAULT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_creacion` date NOT NULL,
   PRIMARY KEY (`idmonitor`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
@@ -197,23 +199,15 @@ CREATE TABLE IF NOT EXISTS `monitor` (
 -- Volcado de datos para la tabla `monitor`
 --
 
-INSERT INTO `monitor` (`idmonitor`, `usuario`, `clave`, `nombre_monitor`, `apellidos`, `dni`, `telefono`, `email`, `rol`, `foto`, `fecha_creacion`) VALUES
-(1, 'monitor', 'monitor', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg', '2015-11-19'),
-(2, 'admin', 'admin', 'administrador', 'ad bbbb', '44202799L', '959636363', 'shaggy@gmail.com', 'a', 'foto_admin.jpg', '2015-11-19'),
-(3, 'Manu4123', '0jSu9', 'Manuel', 'García Alcudia', '41234567Y', '985232323', 'shaggywe@gmail.com', 'm', 'foto_hommer.jpg', '2015-11-19'),
-(4, 'Pedr4420', 'J04h2U', 'Pedro', 'Pérez Pérez', '44202799L', '926366369', 'shaggyw@gmail.com', 'a', 'flanders.png', '2015-11-19');
+INSERT INTO `monitor` (`idmonitor`, `usuario`, `clave`, `nombre_monitor`, `apellidos`, `dni`, `telefono`, `email`, `rol`, `foto`, `activo`, `fecha_creacion`) VALUES
+(1, 'monitor', 'monitor', 'Mario', 'Vilches Nieves', '44202799L', '959231955', 'shaggyweb@gmail.com', 'm', 'foto01.jpg', 1, '2015-11-19'),
+(2, 'admin', 'admin', 'administrador', 'ad bbbb', '44202799L', '959636363', 'shaggy@gmail.com', 'a', 'foto_admin.jpg', 1, '2015-11-19'),
+(3, 'Manu4123', '0jSu9', 'Manuel', 'García Alcudia', '41234567Y', '985232323', 'shaggywe@gmail.com', 'm', 'foto_hommer.jpg', 1, '2015-11-19'),
+(4, 'Pedr4420', 'J04h2U', 'Pedro', 'Pérez Pérez', '44202799L', '926366369', 'shaggyw@gmail.com', 'a', 'flanders.png', 1, '2015-11-19');
 
 --
 -- Disparadores `monitor`
 --
-DROP TRIGGER IF EXISTS `BorrarMonitor`;
-DELIMITER //
-CREATE TRIGGER `BorrarMonitor` BEFORE DELETE ON `monitor`
- FOR EACH ROW BEGIN
-    DELETE FROM notificacion_monitor WHERE notificacion_monitor.idmonitor = OLD.idmonitor;
-    END
-//
-DELIMITER ;
 DROP TRIGGER IF EXISTS `fecha_creacion`;
 DELIMITER //
 CREATE TRIGGER `fecha_creacion` BEFORE INSERT ON `monitor`
@@ -240,7 +234,20 @@ CREATE TABLE IF NOT EXISTS `notificacion_monitor` (
   PRIMARY KEY (`idnotificacion`),
   KEY `fk_notificacion_monitor_monitor1_idx` (`idmonitor`),
   KEY `fk_notificacion_monitor_jugador1_idx` (`idjugador`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `notificacion_monitor`
+--
+
+INSERT INTO `notificacion_monitor` (`idnotificacion`, `idmonitor`, `idjugador`, `nombre_notificacion`, `descripcion`, `fecha`, `estado`) VALUES
+(1, 1, 5, 'Primera Notificacion', 'Esta es la primera notificacion para el jugad', '2015-12-02', 'N'),
+(2, 1, 6, 'axxx', 'xzxzxzx scscsxc dcdsfdf.', '2015-12-02', 'N'),
+(3, 1, 7, 'ssss', 'asdfghjkkl', '2015-12-02', 'N'),
+(4, 1, 7, 'cscsccscsc', 'ccdddfdfdfd fdfd gfggdg\r\nbbvbvb', '2015-12-03', 'N'),
+(5, 2, 5, 'sdsdsdsdsad', 'xsxxszxsc ccdcdcdsc', '2015-12-01', 'L'),
+(6, 4, 5, 'xsxs sxsaxs', 'aaaa xxxx', '2015-12-02', 'L'),
+(7, 3, 5, 'zzzz', 'zxaqwe', '2015-12-03', 'L');
 
 -- --------------------------------------------------------
 

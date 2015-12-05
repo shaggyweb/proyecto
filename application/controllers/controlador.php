@@ -67,7 +67,7 @@ class controlador extends CI_Controller {
 		$config['total_rows']= $total_filas;
 		$config['per_page'] = $total_pagina;
 		$config['num_links'] = 2;
-		  $config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
         $config['first_link'] = false;
         $config['last_link'] = false;

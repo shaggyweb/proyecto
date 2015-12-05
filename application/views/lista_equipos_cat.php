@@ -27,6 +27,7 @@
 						<td><div class="panel panel-default">
   							<div class="panel-body">
     							<a href="#<?=$eq['idequipo']?>" class="enlace_info" id="<?=$eq['idequipo']?>" name="<?=$eq['idequipo']?>"><?=$eq['nombre_eq']?></a>
+    							<button onClick="ver_plantilla_eq(<?=$eq["idequipo"]; ?>)"><?=$eq['nombre_eq']?></button>
   							</div>
 						</div> </td> 
 						                                 			
@@ -38,6 +39,18 @@
                   	<?php endforeach;?>
                   	</tr>
                   	</table>
+                  	<div id="contenedor"><?php foreach($jugadores as $jug):?>
+                								<?php if($eq['nombre_eq']==$jug['nombre_eq']):?>
+                		
+                									<tr>
+                  										<td><?=$jug['nombre_jugador']?></td>
+                  										<td><?=$jug['apellidos_jugador']?></td>
+                  										<td><?=$jug['dni']?></td>
+                  										<td><?=$jug['sexo']?></td>
+                  										<td><?=date("d-m-Y",strtotime($jug['fecha_crea']))?></td>
+                  									</tr>
+                  								<?php endif ?></div>
+                  								<?php endforeach;?>
                   		
                 </div>
             </div>
@@ -71,7 +84,7 @@
                 		
                 									<tr>
                   										<td><?=$jug['nombre_jugador']?></td>
-                  										<td><?=$jug['apellidos_jugador']?></td>
+                  										<td><?=$jug['apellidos']?></td>
                   										<td><?=$jug['dni']?></td>
                   										<td><?=$jug['sexo']?></td>
                   										<td><?=date("d-m-Y",strtotime($jug['fecha_crea']))?></td>
@@ -95,5 +108,3 @@
 
     </div>
     <!-- /.container -->
-    
-  

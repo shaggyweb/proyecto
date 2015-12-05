@@ -165,11 +165,11 @@
                                     <span class="glyphicon glyphicon-envelope"></span>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div>Añadir Jugador</div>
+                                    <div>Crear Mensaje Privado</div>
                                 </div>
                             </div>
                         </div>
-                		<a href="<?=site_url("controlador_monitor/anadir_jugador");?>">
+                		<a href="<?=site_url("controlador_mensajes/inicial_mensaje");?>">
                             <div class="panel-footer">
                                 <span class="pull-left">Acceder</span> 
                            		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>

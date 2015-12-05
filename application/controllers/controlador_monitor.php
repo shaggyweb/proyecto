@@ -208,6 +208,7 @@ class controlador_monitor extends controlador
 	{
 		$this->session->unset_userdata('user'); //cierre de sesión
 		$this->session->unset_userdata('rol'); //cierre de sesión
+		$this->session->unset_userdata('idjugador');
 		//$this->session->set_userdata('logueado',false); //cierre de sesión
 		redirect(site_url());
 	}
@@ -241,7 +242,7 @@ class controlador_monitor extends controlador
 			//print_r($equip);
 			
 			$data['nombre_jugador'] = $this->input->post('nombre');
-			$data['apellidos'] = $this->input->post('apellidos');
+			$data['apellidos_jugador'] = $this->input->post('apellidos');
 			$data['dni'] = $this->input->post('dni');
 			$data['telefono'] = $this->input->post('telefono');
 			$data['email'] = $this->input->post('email');
@@ -370,6 +371,7 @@ class controlador_monitor extends controlador
 				$dato['email'] = $this->input->post('email');
 				$dato['rol'] = $this->input->post('rol');
 				$dato['foto'] = $foto;
+				$dato['estado'] = 'A';
 					
 				//print_r($data);
 				$num_letras=8;
@@ -576,6 +578,39 @@ class controlador_monitor extends controlador
 			
 			$this->Plantilla($cuerpo);
 		}
+	}
+	
+	public function listar_monitores_admin()
+	{
+		$datos['monitores']=$this->mod_monitor->listar_monitores();
+		
+		$cuerpo=$this->load->view('lista_monitores_admin',$datos,true);
+			
+		$this->Plantilla($cuerpo);
+	}
+	
+	public function borrar_monitor($idmonitor)
+	{
+		$datos['monitor']=$this->mod_monitor->buscar_monitor_id($idmonitor);
+		
+		//print_r($datos);
+		$cuerpo=$this->load->view('confirmar_borrado_monitor',$datos,true);
+		
+		$this->Plantilla($cuerpo);
+		
+	}
+	
+	public function borrado_monitor($idmonitor)
+	{
+		$this->mod_monitor->borrado_monitor($idmonitor);
+		
+		$datos['monitores']=$this->mod_monitor->listar_monitores();
+	
+		//print_r($datos);
+		$cuerpo=$this->load->view('lista_monitores_admin',$datos,true);
+	
+		$this->Plantilla($cuerpo);
+	
 	}
 	
 	/*public function mostrar_plantillas()

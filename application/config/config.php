@@ -16,7 +16,7 @@
 */
 $config['base_url']	= 'http://localhost/Escuela';
 
-//$config['base_url']='http://iessansebastian.com/alumnos/2daw151ev/mario/Escuela';
+//$config['base_url']='http://iessansebastian.com/alumnos/2daw151ev/mario';
 
 /*
 |--------------------------------------------------------------------------

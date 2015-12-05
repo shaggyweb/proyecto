@@ -24,6 +24,8 @@ class controlador_equipos extends controlador {
 		//print_r($datos['equipos']);
 	}
 	
+
+	
 	public function llena_equipos()
 	{
 		$options = "";

@@ -32,8 +32,7 @@
   });
 });
 </script>
-    
-
+ 
   
     
   </head>
@@ -52,18 +51,32 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
     <script src="<?= base_url('Assets/js/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('Assets/js/bootstrap.min.js'); ?>"></script>
-  
     
+  
     <!-- Script to Activate the Carousel -->
     <script>
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
     </script>
+    
+    
      <!-- Jquery Functions -->
     <script>
 $(document).ready(function(){
     $("#habilitar").click(function(){
+    	 $(".form-control").removeAttr("disabled");
+    	 $(".btn").removeAttr("disabled");
+    	 $(".foto").removeAttr("disabled");
+    	 $('#habilitar').attr("disabled", true);
+    });
+});
+
+</script>
+    
+  <script>
+$(document).ready(function(){
+    $("#mod_pass").click(function(){
     	 $(".form-control").removeAttr("disabled");
     	 $(".btn").removeAttr("disabled");
     	 $(".foto").removeAttr("disabled");
@@ -161,7 +174,7 @@ conexion.onreadystatechange=function()
 			$("#categoria").change(function() {
 				$("#categoria option:selected").each(function() {
 					categoria = $('#categoria').val();
-					$.post("<?=base_url('index.php/controlador_equipos/llena_equipos')?>", {
+					$.post("<?=base_url('index.php/controlador_mensajes/llena_equipos')?>", {
 						categoria : categoria
 					}, function(data) {
 						$("#equipos").html(data);
@@ -170,6 +183,21 @@ conexion.onreadystatechange=function()
 			})
 		});
 	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#equipos").change(function() {
+				$("#equipos option:selected").each(function() {
+					equipos = $('#equipos').val();
+					$.post("<?=base_url('index.php/controlador_mensajes/llena_jugadores')?>", {
+						equipos : equipos
+					}, function(data) {
+						$("#jugadores").html(data);
+					});
+				});
+			})
+		});
+	</script>
+
 
   </body>
 </html>

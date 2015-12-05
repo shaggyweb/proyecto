@@ -28,7 +28,7 @@ class mod_monitor extends CI_Model {
 	 */
 	function login_monitor($usuario,$clave)
 	{
-		$sql = "select * from monitor where usuario = '".$usuario."' AND clave = '".$clave."'";
+		$sql = "select * from monitor where usuario = '".$usuario."' AND clave = '".$clave."' and estado=1;";
 		
 		$query = $this->db->query($sql);
 		//print_r($sql);
@@ -66,9 +66,10 @@ class mod_monitor extends CI_Model {
 	
 	function listar_monitores()
 	{
-		$consulta = $this->db->get('monitor');
-		// Produce: SELECT * FROM categorias
-		return $consulta->result_array();
+		$this->db->from('monitor');
+		$this->db->where('activo', 1);
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 	
 	/**
@@ -118,6 +119,44 @@ class mod_monitor extends CI_Model {
 		$this->db->where('idmonitor', $cod_mon);
 		$this->db->update('monitor', $datos);
 	}
+	
+	/**
+	 * Método para buscar un usuario según su nombre de usuario
+	 * @param string $usuario Nombre de usuario a buscar
+	 */
+	function buscar_monitor_id($id){
+		$sql=$this->db->query("select * from monitor
+				where idmonitor = \"$id\"
+				");
+	
+		return $sql->result_array();
+	}
+	
+	function borrado_monitor($id)
+	{
+		$monitor = array(
+			'activo' => false
+		);
+	
+		$this->db->where('idmonitor', $id);
+		$this->db->update('monitor', $monitor);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Método para buscar un usuario según su nombre de usuario

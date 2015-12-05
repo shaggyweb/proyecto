@@ -105,7 +105,7 @@ class controlador_usuarios extends controlador
 		{
 			$id_jugador=$this->input->post('idusuario');
 			$data['nombre_jugador'] = $this->input->post('nombre');
-			$data['apellidos'] = $this->input->post('apellidos');
+			$data['apellidos_jugador'] = $this->input->post('apellidos');
 			$data['dni'] = $this->input->post('dni');
 			$data['telefono'] = $this->input->post('telefono');
 			$data['email'] = $this->input->post('email');
@@ -210,7 +210,7 @@ class controlador_usuarios extends controlador
 			$email=$this->input->post('email');
 			$query = $this->mod_usuarios->comprobar_mail_usuario($email);
 				
-			$jugador=$query['nombre_jugador']." ".$query['apellidos'];
+			$jugador=$query['nombre_jugador']." ".$query['apellidos_jugador'];
 				
 			$usuario=$query['usuario'];
 				
@@ -270,9 +270,50 @@ class controlador_usuarios extends controlador
 	}
 	
 	
+	public function lista_mensajes($inicio=0)
+	{
+		$usuario=$this->session->userdata('user');
+		$datos_jugador=$this->mod_usuarios->buscar_usuario($usuario);
+		
+		//print_r($datos_jugador);
+		
+		$idjugador=$datos_jugador[0]['idjugador'];
+		//parametros para el paginador
+		$url = site_url('controlador_usuarios/lista_mensajes');
+		$total_pagina = 2;
+		$total_filas = $this->mod_mensajes->total_mensajes($idjugador);
+		$segm = 3;
+		
+		//print_r($total_filas);
+		//llamada al paginador
+		
+		$datos['paginador'] = $this->paginador($url, $total_pagina, $total_filas, $segm);
+		
+		$datos['mensajes'] = $this->mod_usuarios->lista_mensajes($idjugador,$inicio, $total_pagina);
+		
+		$datos['nuevos']=$this->mod_usuarios->mensajes_nuevos($idjugador);
+		
+		$cuerpo=$this->load->view('lista_mensajes_jug',$datos,true);
+		
+		$this->Plantilla($cuerpo);
+		
+		//print_r($datos['paginador']);
+		
+		
+	}
 	
-	
-	
+	public function borrar_jugador($idjugador)
+	{
+		$datos['jugador']=$this->mod_usuarios->buscar_usuario_id($idjugador);
+		
+		
+		
+		$cuerpo=$this->load->view('confirmar_borrado_jug',$datos,true);
+		
+		$this->Plantilla($cuerpo);
+		
+		//print_r('dsdsdsd');
+	}
 	
 	
 	

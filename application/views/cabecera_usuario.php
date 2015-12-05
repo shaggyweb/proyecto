@@ -39,7 +39,7 @@
                   		</ul>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-envelope"></span> Mensajes Privados</a>
+<a href="<?=site_url("controlador_usuarios/lista_mensajes");?>"><span class="glyphicon glyphicon-envelope"></span> Mensajes Privados</a>
 </li>
 <li>
 <a href="<?=site_url("controlador_eventos/eventos_jugador");?>"><span class="glyphicon glyphicon-calendar"></span> Eventos</a>

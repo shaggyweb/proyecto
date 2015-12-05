@@ -4,8 +4,8 @@
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <h2 class="intro-text text-center">Datos De Acceso del Monitor/a
-                        <strong><?=$usuario[0]['nombre_jugador']?> <?=$usuario[0]['apellidos']?></strong>
+                    <h2 class="intro-text text-center">Datos De Acceso del Jugador/a
+                        <strong><?=$usuario[0]['nombre_jugador']?> <?=$usuario[0]['apellidos_jugador']?></strong>
                         
                     </h2>
                     <hr>

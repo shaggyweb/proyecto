@@ -128,6 +128,179 @@
                 </div>
             </div>
             <!-- /.row -->
+            <div class="row">
+             <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Añadir Eventos</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?=site_url("controlador_eventos/anadir_evento");?>">
+                        <div class="panel-footer">
+                           <span class="pull-left">Acceder</span> 
+                           <span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+                           <div class="clearfix"></div>
+                        </div> 
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-zoom-in"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Consultar Eventos</div>
+                                </div>
+                            </div>
+                        </div>
+                        	<a href="<?=site_url("controlador_eventos/consultar_eventos");?>">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acceder</span> 
+                           		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+                           		<div class="clearfix"></div>
+                            </div>
+                           </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Crear Mensaje Privado</div>
+                                </div>
+                            </div>
+                        </div>
+                		<a href="<?=site_url("controlador_mensajes/inicial_mensaje");?>">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acceder</span> 
+                           		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+                           		<div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Consultar Plantillas</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?=site_url("controlador_monitor/mostrar_plantillas");?>">
+                             <div class="panel-footer">
+                                <span class="pull-left">Acceder</span> 
+                           		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+                           		<div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+              <div class="row">
+             <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Operar con Monitores</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?=site_url("controlador_monitor/listar_monitores_admin");?>">
+                        <div class="panel-footer">
+                           <span class="pull-left">Acceder</span> 
+                           <span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+                           <div class="clearfix"></div>
+                        </div> 
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-zoom-in"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Consultar Eventos</div>
+                                </div>
+                            </div>
+                        </div>
+                        	<a href="<?=site_url("controlador_eventos/consultar_eventos");?>">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acceder</span> 
+                           		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+                           		<div class="clearfix"></div>
+                            </div>
+                           </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Crear Mensaje Privado</div>
+                                </div>
+                            </div>
+                        </div>
+                		<a href="<?=site_url("controlador_mensajes/inicial_mensaje");?>">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acceder</span> 
+                           		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+                           		<div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Consultar Plantillas</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                             <div class="panel-footer">
+                                <span class="pull-left">Acceder</span> 
+                           		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>
+                           		<div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
                 </div>
             </div>
         </div>

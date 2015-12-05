@@ -45,6 +45,19 @@ class mod_usuarios extends CI_Model {
 		$this->db->insert('jugador',$data);
 	}
 	
+	
+	/**
+	 * Método para buscar un usuario según su nombre de usuario
+	 * @param string $usuario Nombre de usuario a buscar
+	 */
+	function buscar_usuario_id($id){
+		$sql=$this->db->query("select * from jugador
+				where idjugador = \"$id\"
+				");
+	
+		return $sql->result_array();
+	}
+	
 	/**
 	* Método para buscar un usuario según su nombre de usuario
 	* @param string $usuario Nombre de usuario a buscar
@@ -98,6 +111,32 @@ class mod_usuarios extends CI_Model {
 		);
 		$this->db->where('idjugador', $cod_user);
 		$this->db->update('jugador', $datos);
+	}
+	
+	function lista_mensajes($idjugador,$inicio = 0, $limit = 0)
+	{
+		
+			$this->db->select('*');
+			$this->db->from('notificacion_monitor');
+			$this->db->limit($limit, $inicio);
+			$this->db->join('jugador','notificacion_monitor.idjugador=jugador.idjugador','INNER');
+			$this->db->join('monitor','notificacion_monitor.idmonitor=monitor.idmonitor','INNER');
+			$this->db->where('notificacion_monitor.idjugador', $idjugador);
+			$query = $this->db->get();
+		
+		
+			return $query->result_array();
+		
+		
+	}
+	
+	function mensajes_nuevos($idjugador)
+	{
+		$sql=$this->db->query("select count(idjugador)as total_nuevos from notificacion_monitor
+				where estado=\"N\" and idjugador = \"$idjugador\"
+				");
+		
+		return $sql->result_array();
 	}
 	
 	
