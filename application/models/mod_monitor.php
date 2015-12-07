@@ -28,7 +28,7 @@ class mod_monitor extends CI_Model {
 	 */
 	function login_monitor($usuario,$clave)
 	{
-		$sql = "select * from monitor where usuario = '".$usuario."' AND clave = '".$clave."' and estado=1;";
+		$sql = "select * from monitor where usuario = '".$usuario."' AND clave = '".$clave."' and activo=1;";
 		
 		$query = $this->db->query($sql);
 		//print_r($sql);

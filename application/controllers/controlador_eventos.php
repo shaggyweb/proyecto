@@ -86,7 +86,14 @@ class controlador_eventos extends controlador {
 	
 	public function eventos_jugador()
 	{
-		$datos['eventos']=$this->mod_noticias->eventos_jugador();
+		$usuario=$this->session->userdata('user');
+		$datos_jugador=$this->mod_usuarios->buscar_usuario($usuario);
+		
+		//print_r($datos_jugador);
+		
+		$idjugador=$datos_jugador[0]['idjugador'];
+		
+		$datos['eventos']=$this->mod_noticias->eventos_jugador($idjugador);
 		
 		//print_r($datos);
 		
@@ -94,4 +101,159 @@ class controlador_eventos extends controlador {
 		
 		$this->Plantilla($cuerpo);
 	}
+	
+	public function pantalla_buscador()
+	{
+		
+		
+		//limpiamos los campos del formulario, no necesitamos validar
+		$this->form_validation->set_rules('idequipo', 'idequipo', 'trim|max_length[40]|xss_clean');
+		$this->form_validation->set_rules('tipo_evento', 'tipo_evento', 'trim|xss_clean');
+		$this->form_validation->set_rules('fecha', 'fecha', 'trim|xss_clean');
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+			$todos_campos_vacios=True;
+			
+			if($this->input->post('idequipo')!="0")
+			{
+				$campos['idequipo']=$this->input->post('idequipo');
+				$todos_campos_vacios=false;
+			}
+			if($this->input->post('tipo_evento')!="0")
+			{
+				$campos['tipo_evento']=$this->input->post('tipo_evento');
+				$todos_campos_vacios=false;
+			}
+			
+			if ($this->input->post('fecha')!="")
+			{
+				$fecha=$this->input->post('fecha');
+			
+				//print_r($fecha);
+				$fecha=DateTime::createFromFormat('d/m/Y', $fecha);
+			
+				//print_r($fecha);
+				//$fecha_2=date("Y-m-d", $fecha);
+				$fecha_nueva=$fecha->format('Y-m-d');
+				$campos['fecha']=$fecha_nueva;
+			
+				$todos_campos_vacios=false;
+			}
+			//$data['resultados']=$this->busqueda();
+			
+			//print_r($campos);
+			if($todos_campos_vacios==false)
+			{
+				$datos=$this->mod_noticias->nueva_busqueda($campos);
+			
+				print_r($datos);
+			}
+		}
+		else
+		{
+			/*$data = array('titulo' => 'Buscador con múltiples criterios',
+				'resultados' => $this->busqueda());*/
+			
+		
+			$data['equipos']=$this->mod_equipos->listar_equipos();
+		
+			$data['tipo_eventos']=$this->mod_noticias->tipos_eventos();
+			
+			$cuerpo=$this->load->view('pantalla_buscador',$data,true);
+		
+			$this->Plantilla($cuerpo);
+		}
+	}
+	
+
+	//aquí es donde hacemos toda la búsqueda del buscador
+	/*public function busqueda()
+	{
+		
+			
+			//limpiamos los campos del formulario, no necesitamos validar
+			$this->form_validation->set_rules('idequipo', 'idequipo', 'trim|max_length[40]|xss_clean');		 
+	        $this->form_validation->set_rules('tipo_evento', 'tipo_evento', 'trim|xss_clean');
+	 		$this->form_validation->set_rules('fecha', 'fecha', 'trim|xss_clean');
+				
+	 		
+	 		$campos['descripcion_evento'] = $this->input->post('descripcion');
+			//los campos del formulario deben tener el mismo nombre
+			//que los de la base de datos a buscar, esto luego lo 
+			//recorremos para comprobar como vienen				
+			$campos = array('idequipo', 'tipo_evento', 'fecha','fecha1');
+			
+			print_r($campos);
+			
+			//envíamos los datos al modelo para hacer la búsqueda
+			//$resultados = $this->mod_noticias->nueva_busqueda($campos);
+			
+			//if($resultados !== FALSE)
+			//{
+				
+			//	return $resultados;
+			//	
+			//}
+			
+			
+			
+		
+	}*/
+
+	//a través de jquery llenamos el autocompletado
+	public function poblaciones()
+    {
+        //si es una petición ajax y existe una variable post
+        //llamada info dejamos pasar
+        if($this->input->is_ajax_request() && $this->input->post('info'))
+        {
+ 
+            $abuscar = $this->security->xss_clean($this->input->post('info'));
+ 
+            $search = $this->mod_noticias->buscador_poblacion($abuscar);
+            
+            //print_r($search);
+ 
+            //si search es distinto de false significa que hay resultados
+            //y los mostramos con un loop foreach
+            if($search !== FALSE)
+            {
+ 
+                foreach($search as $fila)
+                {
+                	//print_r($search);
+                ?>
+ 
+                    <p><a href="<?=site_url("controlador_eventos/resultado_busqueda/".$fila['idevento']);?>">
+                    	<?php echo $fila['descripcion_evento'] ?>
+                    </a></p>
+ 
+                <?php
+                }
+ 
+            //en otro caso decimos que no hay resultados
+            }else{
+            ?>
+ 
+                <p><?php echo 'No hay resultados' ?></p>
+ 
+            <?php
+            }
+ 
+        }
+ 
+    }
+    
+    public function resultado_busqueda($id)
+    {
+    	$datos['evento']=$this->mod_noticias->buscar_evento_id($id);
+    	
+    	//print_r($datos);
+    	
+    	$cuerpo=$this->load->view('resultado_busqueda',$datos,true);
+    	
+    	$this->Plantilla($cuerpo);
+    }
+
 }
