@@ -10,42 +10,47 @@
                     <hr>
                     <hr class="visible-xs">
                     <form action="<?=base_url('index.php/controlador_monitor/mostrar_plantillas');?>" method="post"> 
-                    <table>
-                    	<tr>
-                  			
-                  			
-
-						<td><div class="panel panel-default">
+                   		<div class="panel panel-default">
   							<div class="panel-body">
-    							<select id="equipos" name="equipos" onchange="cargar_plantilla()">
-									<option value="0">Seleccione Equipo</option>
-									<?php foreach ($equipos as $eq) : ?>
+  								<table class="table table-striped">
+  									<tr>
+    								<td align="center">Categoría:</td>
+							
+										<td><select id="categoria" class="form-control" name="categoria">
+										<option value="0">Seleccione Categoría</option>
+										<?php foreach ($categorias as $cat) : ?>
 									
-									<option value="<?=$eq['idequipo']?>"><?=$eq['nombre_eq']?></option>
+										<option value="<?=$cat['idtipo']?>"><?=$cat['nombre_categoria']?></option>
 								
-									<?php endforeach; ?>
-								</select>
+										<?php endforeach; ?>
+										</select>
+									</td>
+						
+									<td aling="center">Equipo:</td>
+										<td><select id="equipos" class="form-control" name="equipos">
+    										<option value="0">Selecciona Equipo</option>
+    									</select>
+    								</td>
+    								<td align="center"><input type="submit" class="btn btn-primary" name="enviar" value="Mostrar Plantilla" /></td> 
+    								<tr><td><?php echo form_error('equipos'); ?></td></tr>
+    									
+								</table>
   							</div>
-						</div> </td> 
-						<td align="center"><input type="submit" class="btn btn-primary" name="enviar" value="Añadir" /></td>                                			
+						</div> 
+					</form>				
                   				
-                  				
-                  			
-                           				
-                  			
-                 
-                  	</tr>
-                  	</table>
-                  	</form>
                   		
-                </div>
+                 </div>       				
+                  
+             		
+              </div>
                
             </div>
         </div>
 
         
 
-    </div>
+
     <!-- /.container -->
     
 

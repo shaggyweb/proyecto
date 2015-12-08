@@ -28,7 +28,16 @@
   											<td><?=$men['nombre_monitor']." ".$men['apellidos']?></td>
   											<td><?=$men['nombre_notificacion']?></td>
   											<td><?=date("d-m-Y",strtotime($men['fecha']))?></td>
-  											<td><?=$men['estado']?></td>
+  											<td><?php if ($men['estado']=="N")
+  											{
+  												?>Nuevo<?php 
+  											}
+  											if ($men['estado']=="L")
+  											{
+  												?>Leído<?php
+  											}
+  											?>
+											</td>
   											<td><a href="<?= site_url('controlador_mensajes/detalles_mensaje/'. $men['idnotificacion'])?>"><span class="glyphicon glyphicon-search"></span></a></td>
   										</tr>
   									<?php endforeach; ?>

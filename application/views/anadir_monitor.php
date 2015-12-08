@@ -96,8 +96,10 @@
    									
    									</tr>
    									
+   									<tr><td><span class="text-danger"><?php if (isset($error)) echo $error; ?></span></td></tr>
+   									
    									<tr><td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="enviar" value="Añadir" /></td></tr>
-   							
+   									
    								</table>
    							</form>  
    						</div>                 

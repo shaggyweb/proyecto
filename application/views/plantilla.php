@@ -75,6 +75,8 @@ $(document).ready(function(){
 
 </script>
     
+    
+    
   <script>
 $(document).ready(function(){
     $("#mod_pass").click(function(){

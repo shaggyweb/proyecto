@@ -162,7 +162,7 @@
                                 </div>
                             </div>
                         </div>
-                        	<a href="<?=site_url("controlador_eventos/consultar_eventos");?>">
+                        	<a href="<?=site_url("controlador_eventos/pantalla_buscador");?>">
                             <div class="panel-footer">
                                 <span class="pull-left">Acceder</span> 
                            		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>

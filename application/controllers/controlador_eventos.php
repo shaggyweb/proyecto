@@ -72,6 +72,14 @@ class controlador_eventos extends controlador {
 			$data['hora'] = $this->input->post('hora');
 			$this->mod_noticias->nuevo_evento($data);
 			
+			$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se ha creado correctamente el evento.</h4>";
+				
+			$data['enlace']=base_url("index.php/controlador_monitor/portada_monitor");
+			
+			$cuerpo=$this->load->view('mensajes_info',$data,true);
+			
+			$this->Plantilla($cuerpo);
+			
 		}
 		else
 		{
@@ -84,16 +92,25 @@ class controlador_eventos extends controlador {
 		
 	}
 	
-	public function eventos_jugador()
+	public function eventos_jugador($inicio=0)
 	{
+		
 		$usuario=$this->session->userdata('user');
 		$datos_jugador=$this->mod_usuarios->buscar_usuario($usuario);
 		
 		//print_r($datos_jugador);
 		
-		$idjugador=$datos_jugador[0]['idjugador'];
+		$idequipo=$datos_jugador[0]['idequipo'];
 		
-		$datos['eventos']=$this->mod_noticias->eventos_jugador($idjugador);
+		//parametros para el paginador
+		$url = site_url('controlador_eventos/eventos_jugador');
+		$total_pagina = 2;
+		$total_filas = $this->mod_noticias->total_eventos_jugador($idequipo);
+		$segm = 3;
+		//llamada al paginador
+		$datos['paginador'] = $this->paginador($url, $total_pagina, $total_filas, $segm);
+		
+		$datos['eventos']=$this->mod_noticias->eventos_jugador($inicio, $total_pagina,$idequipo);
 		
 		//print_r($datos);
 		
@@ -145,9 +162,44 @@ class controlador_eventos extends controlador {
 			//print_r($campos);
 			if($todos_campos_vacios==false)
 			{
-				$datos=$this->mod_noticias->nueva_busqueda($campos);
+				if($this->mod_noticias->nueva_busqueda($campos))
+				{
+				
+					$datos['resultado']=$this->mod_noticias->nueva_busqueda($campos);
+				
+					$cuerpo = $this->load->view('resultado_busqueda_campos', $datos, TRUE);
+				
+					$this->Plantilla($cuerpo);
+				}
+				else
+				{
+					$data['mensaje']="<h4><span class='glyphicon glyphicon-exclamation-sign'></span> No hay resultados con los criterios introducidos.</h4>";
+					
+					$data['enlace']=base_url("index.php/controlador_eventos/pantalla_buscador");
+						
+					$cuerpo=$this->load->view('mensajes_info',$data,true);
+						
+					$this->Plantilla($cuerpo);
+					//print_r("no resul");
+				}
 			
-				print_r($datos);
+				//print_r($datos);
+			}
+			else
+			{
+				$data['error']='Debe seleccionar algún criterio de búsqueda';
+				
+				$data['equipos']=$this->mod_equipos->listar_equipos();
+				
+				$data['tipo_eventos']=$this->mod_noticias->tipos_eventos();
+				
+				$cuerpo = $this->load->view('pantalla_buscador', $data, TRUE);
+				
+				$this->Plantilla($cuerpo);
+				
+				//$this->session->set_flashdata('error', 'Debe seleccionar algún criterio de búsqueda');
+				//print_r('dsdsdsd');
+				//redirect('controlador_eventos/pantalla_buscador');
 			}
 		}
 		else
@@ -255,5 +307,7 @@ class controlador_eventos extends controlador {
     	
     	$this->Plantilla($cuerpo);
     }
+    
+
 
 }

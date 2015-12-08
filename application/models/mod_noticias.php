@@ -53,6 +53,7 @@ class mod_noticias extends CI_Model {
 		$this->db->from('equipo');
 		$this->db->join('evento','equipo.idequipo=evento.idequipo','INNER');
 		$this->db->join('tipo_evento','tipo_evento.idtipo_evento=evento.tipo_evento');
+		$this->db->limit(5);
 		$this->db->order_by("fecha", "desc");
 		$query = $this->db->get();
 		
@@ -90,14 +91,15 @@ class mod_noticias extends CI_Model {
 	}
 	
 	
-	function eventos_jugador($idjugador)
+	function eventos_jugador($inicio=0,$limit=0,$idequipo)
 	{
 		$this->db->select('*');
 		$this->db->from ('evento');
+		$this->db->limit($limit, $inicio);
 		$this->db->join('equipo','evento.idequipo=equipo.idequipo','INNER');
 		$this->db->join('tipo_evento','tipo_evento.idtipo_evento=evento.tipo_evento');
 		$this->db->join('jugador','jugador.idequipo=equipo.idequipo');
-		$this->db->where('idjugador', $idjugador);
+		$this->db->where('evento.idequipo', $idequipo);
 		$this->db->order_by("fecha", "desc");
 		
 		$query = $this->db->get();
@@ -113,6 +115,14 @@ class mod_noticias extends CI_Model {
 	 */
 	function total_eventos() {
 		$this->db->from('evento');
+		$resultado = $this->db->get();
+		return $resultado->num_rows();
+	}
+	
+	function total_eventos_jugador($idequipo)
+	{
+		$this->db->from('evento');
+		$this->db->where('idequipo', $idequipo);
 		$resultado = $this->db->get();
 		return $resultado->num_rows();
 	}
@@ -188,7 +198,9 @@ class mod_noticias extends CI_Model {
 			$cond .= $clave . ' = "' . $valor . '"';
 		}
 		
-		$sql.=' '.$cond;
+		$sql.=' '.$cond.' ORDER BY fecha DESC';
+		
+		//print_r($sql);
 		
 	
 		//recorremos los campos del formulario

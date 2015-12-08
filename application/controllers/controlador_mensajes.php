@@ -90,6 +90,14 @@ class controlador_mensajes extends controlador {
 			
 			$this->mod_mensajes->anadir_mensaje($datos);
 			
+			$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se ha creado correctamente la notificación.</h4>";
+			
+			$data['enlace']=base_url("index/php/controlador_monitor/portada_monitor");
+				
+			$cuerpo=$this->load->view('mensajes_info',$data,true);
+				
+			$this->Plantilla($cuerpo);
+			
 			//print_r($datos);
 			
 				
@@ -157,6 +165,8 @@ class controlador_mensajes extends controlador {
 				return true;
 			}
 		}
+		
+		
 		
 		public function detalles_mensaje($idmensaje)
 		{

@@ -18,7 +18,7 @@
 									</tr>
 						
 									<tr>
-									<tr><td><br></td></tr>
+									<tr><td><tr><td colspan="2"><br><span class="text-danger"><?php if (isset($error)) echo $error; ?></span></td></tr><br></td></tr>
 									<td align="center" colspan="2"><input type="submit" class="btn btn-success btn-lg btn-block" name="enviar" value="Enviar"/></td></tr>
 								</table>
 							</form>

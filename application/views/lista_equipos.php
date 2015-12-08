@@ -11,7 +11,7 @@
                     <div class="panel panel-primary">
                     	<div class="panel-heading">
                     	
-                    		Información
+                    		<span class="glyphicon glyphicon-info-sign"></span> INFORMACIÓN DE LA CATEGORÍA
                     	</div>
                     	<div class="panel-body">
                     		<strong><?=$equipos[0]['descripcion_cat']?></strong>
@@ -26,7 +26,7 @@
 
 						<td><div class="panel panel-default">
   							<div class="panel-body">
-    							<a href="#<?=$eq['idequipo']?>" class="enlace_info" id="<?=$eq['idequipo']?>" name="<?=$eq['idequipo']?>"><?=$eq['nombre_eq']?></a>
+    							<a href="#<?=$eq['idequipo']?>" class="enlace_info" id="<?=$eq['idequipo']?>" name="<?=$eq['idequipo']?>"><span class="glyphicon glyphicon-list"></span> <?=$eq['nombre_eq']?></a>
   							</div>
 						</div> </td> 
 						                                 			

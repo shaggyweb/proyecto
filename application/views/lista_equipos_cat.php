@@ -11,7 +11,7 @@
                     <div class="panel panel-primary">
                     	<div class="panel-heading">
                     	
-                    		Información
+                    		<p align="center"><span class="glyphicon glyphicon-search"></span> Información de la Categoría</p>
                     	</div>
                     	<div class="panel-body">
                     		<strong><?=$equipos[0]['descripcion_cat']?></strong>

@@ -56,8 +56,15 @@
    									
    									<tr>
    										<td align="center">Sexo:</td>
-   										<td align="center"><input type="radio" class ="form-control" name="sexo" disabled value="h" <?php echo set_radio('sexo', 'h'); ?>/>Hombre</td>
-   										<td align="center"><input type="radio" class ="form-control" name="sexo" disabled value="m" <?php echo set_radio('sexo', 'm'); ?>/>Mujer</td>
+   										<td align="center"><input type="radio" class ="form-control" name="sexo" disabled value="h" <?php echo set_radio('sexo', 'h');if ($usuario[0]['sexo']=="h")
+						{
+							?> checked <?php
+						}?>/>Hombre
+   										<input type="radio" class ="form-control" name="sexo" disabled value="m" <?php echo set_radio('sexo', 'm'); if ($usuario[0]['sexo']=="m")
+						{
+							?> checked <?php
+						}?>/>Mujer</td>
+   										
    										<td><?php echo form_error('sexo'); ?></td>
    									
    									</tr>

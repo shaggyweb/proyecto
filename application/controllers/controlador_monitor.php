@@ -56,8 +56,8 @@ class controlador_monitor extends controlador
 			else
 			{
 				//print_r ("No crrecto");
-		
-				$cuerpo=$this->load->view('login_monitor',0,true);
+				$data['error'] = "<h4><span class='glyphicon glyphicon-warning-sign'></span> Usuario incorrecto</h4>";
+				$cuerpo=$this->load->view('login_monitor',$data,true);
 				$this->Plantilla($cuerpo);
 			}
 		
@@ -117,14 +117,57 @@ class controlador_monitor extends controlador
 			$data['email'] = $this->input->post('email');
 			$data['foto'] = $this->input->post('foto');
 			
-			if($this->mod_monitor->modificar_monitor($id_monitor,$data))
-			{
-				//$cuerpo=$this->load->view('mod_exito',0,true);
-					
-				//$this->Plantilla($cuerpo);
+			$config['upload_path'] = realpath(APPPATH.'/../Assets/img/');
+			$config['allowed_types'] = 'gif|jpg|png';
+			$this->load->library('upload', $config);
 				
-				//print_r("Modificacion exitosa");
+			//print_r($this->upload->data());
+				
+			/*if (!$this->upload->do_upload('foto'))
+			{
+				//$error = array('error' => $this->upload->display_errors());
+					
+				//$this->load->view('formulario_carga', $error);
+				//print_r($this->upload->display_errors());
+				//print_r('Error Imagen');
+				//print_r($this->input->post('foto'));
+				$this->session->set_flashdata('error', 'Error al Subir el fichero');
+				redirect('controlador_monitor/ver_monitor');
 			}
+			else
+			{
+				$file_info = $this->upload->data();
+				$foto = $file_info['file_name'];
+				
+				$data['foto'] = $foto;
+				//print_r($foto);
+			
+				*/if($this->mod_monitor->modificar_monitor($id_monitor,$data))
+				{
+					//$cuerpo=$this->load->view('mod_exito',0,true);
+					
+					//$this->Plantilla($cuerpo);
+				
+					//print_r("Modificacion exitosa");
+					$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se han modificado correctamente los datos.</h4>";
+					
+					$data['enlace']=base_url("index.php/controlador_monitor/portada_monitor");
+					
+					$cuerpo=$this->load->view('mensajes_info',$data,true);
+					
+					$this->Plantilla($cuerpo);
+				}
+				else
+				{
+					$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Error al modificar los datos.</h4>";
+						
+					$data['enlace']=base_url("index.php/controlador_monitor/ver_monitor");
+						
+					$cuerpo=$this->load->view('mensajes_info',$data,true);
+						
+					$this->Plantilla($cuerpo);
+				}
+			
 		}
 		else
 		{
@@ -189,6 +232,23 @@ class controlador_monitor extends controlador
 				//$this->Plantilla($cuerpo);
 			
 				//print_r("Modificacion exitosa");
+				$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se han modificado correctamente los datos de acceso.</h4>";
+					
+				$data['enlace']=base_url("index.php/controlador_monitor/portada_monitor");
+					
+				$cuerpo=$this->load->view('mensajes_info',$data,true);
+					
+				$this->Plantilla($cuerpo);
+			}
+			else
+			{
+				$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Error al modificar los datos de acceso.</h4>";
+				
+				$data['enlace']=base_url("index.php/controlador_monitor/ver_monitor");
+				
+				$cuerpo=$this->load->view('mensajes_info',$data,true);
+				
+				$this->Plantilla($cuerpo);
 			}
 		}
 		else
@@ -351,8 +411,10 @@ class controlador_monitor extends controlador
 			
 				//$this->load->view('formulario_carga', $error);
 				//print_r($this->upload->display_errors());
-				print_r('Error Imagen');
+				//print_r('Error Imagen');
 				//print_r($this->input->post('foto'));
+				$this->session->set_flashdata('error', 'Error al Subir el fichero');
+				redirect('controlador_monitor/anadir_monitor');
 			}	
 			else
 			{
@@ -457,14 +519,14 @@ class controlador_monitor extends controlador
 	{
 		//Establecimiento de las reglas de validación
 		
-		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email|callback_Email_No_Valido');
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
 		
 		
 		
 		//Edición de los mensajes de error
 		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
 		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
-		$this->form_validation->set_message('Email_No_Valido', 'Error. Campo %s no válido');
+		//$this->form_validation->set_message('Email_No_Valido', 'Error. Campo %s no válido');
 		
 		//da formato a los errores
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
@@ -474,19 +536,40 @@ class controlador_monitor extends controlador
 			$email=$this->input->post('email');
 			$query = $this->mod_monitor->comprobar_mail_monitor($email);
 			
-			$monitor=$query['nombre_monitor']." ".$query['apellidos'];
+			if($query)
+			{
 			
-			$usuario=$query['usuario'];
+				$monitor=$query['nombre_monitor']." ".$query['apellidos'];
 			
-			$num_letras_aleatorias=8;
+				$usuario=$query['usuario'];
 			
-			$nuevo_pass=$this->generar_clave($num_letras_aleatorias);
+				$num_letras_aleatorias=8;
 			
-			$cod_monitor=$query['idmonitor'];
+				$nuevo_pass=$this->generar_clave($num_letras_aleatorias);
 			
-			$this->mod_monitor->nuevo_password($cod_monitor,$nuevo_pass);
+				$cod_monitor=$query['idmonitor'];
 			
-			$this->email_reestablecer_pass($usuario,$nuevo_pass,$monitor,$email);
+				$this->mod_monitor->nuevo_password($cod_monitor,$nuevo_pass);
+			
+				$this->email_reestablecer_pass($usuario,$nuevo_pass,$monitor,$email);
+				
+				$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se ha enviado a su e-mail su nuevo password de acceso.</h4>";
+				
+				$data['enlace']=base_url();
+				
+				$cuerpo=$this->load->view('mensajes_info',$data,true);
+				
+				$this->Plantilla($cuerpo);
+				
+			}
+			else
+			{
+				$data['error'] = "<h4><span class='glyphicon glyphicon-warning-sign'></span> E-Mail incorrecto</h4>";
+				
+				$cuerpo=$this->load->view('reestablecer_pass_monitor',$data,true);
+				
+				$this->Plantilla($cuerpo);
+			}
 			
 			
 			
@@ -501,7 +584,7 @@ class controlador_monitor extends controlador
 		}
 	}
 	
-	public function Email_No_Valido($email)
+	/*public function Email_No_Valido($email)
 	{
 		$query = $this->mod_monitor->comprobar_mail_monitor($email);
 		if($query)
@@ -512,7 +595,7 @@ class controlador_monitor extends controlador
 		{
 			return false;
 		}
-	}
+	}*/
 	
 	public function email_reestablecer_pass($usu,$pass,$nombre,$correo)
 	{
@@ -554,7 +637,11 @@ class controlador_monitor extends controlador
 	
 	public function mostrar_plantillas()
 	{
-		$this->form_validation->set_rules('equipos', 'equipos', 'trim|required');
+		$this->form_validation->set_rules('equipos', 'equipos', 'required|callback_control_select');
+		
+		$this->form_validation->set_message('control_select', 'Error. Campo %s no válido');
+		
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
 		
 		if ($this->form_validation->run() == TRUE)
 		{
@@ -572,9 +659,16 @@ class controlador_monitor extends controlador
 		}
 		else
 		{
-			$data['equipos']=$this->mod_equipos->todos_equipos();
+			$categorias['categorias'] = $this->mod_equipos->listar_categorias();
+				
+			//array_unshift($categorias['categorias'], 'Selecciones Categoria');
+				
+			//$cuerpo=$this->load->view('anadir_jugador',$categorias,true);
+			
+			
+			//$data['equipos']=$this->mod_equipos->todos_equipos();
 		
-			$cuerpo=$this->load->view('mostrar_plantillas',$data,true);
+			$cuerpo=$this->load->view('mostrar_plantillas',$categorias,true);
 			
 			$this->Plantilla($cuerpo);
 		}
@@ -737,10 +831,19 @@ class controlador_monitor extends controlador
 				}
 				else
 				{
-					redirect(base_url());
+					$data['error'] = "<h4><span class='glyphicon glyphicon-warning-sign'></span> Usuario incorrecto</h4>";
+					$cuerpo=$this->load->view('login_monitor',$data,true);
+					$this->Plantilla($cuerpo);
 					
 				}
 					
+			}
+			else
+			{
+			
+				$cuerpo=$this->load->view('login_monitor',0,true);
+			
+				$this->Plantilla($cuerpo);
 			}
 			
 		}

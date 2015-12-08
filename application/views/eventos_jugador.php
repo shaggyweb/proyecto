@@ -9,20 +9,31 @@
                 <hr>
       			<hr class="visible-xs"> 
       			 
-                  <div class="panel-group" id="accordion">
-						<?php foreach ($eventos as $not) : ?>
-  							<div class="panel panel-default">
-    							<div class="panel-heading">
-      								<h4 class="panel-title">
-        								<a data-toggle="collapse" data-parent="#accordion" href="#<?=$not['idevento']?>">
-        			 						<?=$not['nombre']?>-<?=$not['nombre_eq']?>-<?=date("d-m-Y",strtotime($not['fecha']))?></a>
-      								</h4>
-    							</div>
-    							<div id="<?=$not['idevento']?>" class="panel-collapse collapse">
-      									<div class="panel-body"><?=$not['descripcion_evento']?></div>
-    							</div>
-  							</div>
-  						<?php endforeach; ?>
+                 <div class="table-responsive">
+                			<table class="table table-striped">
+                				<tr><th>TIPO EVENTO</th>
+                					<th>DESCRIPCIÓN</th>
+                					<th>EQUIPO</th>
+                					<th>FECHA</th>
+                					<th>HORA</th>
+            					</tr>
+            					
+									<?php foreach ($eventos as $not) : ?>
+										<tr>
+  											<td><?=$not['nombre']?></td>
+  											<td><?=$not['descripcion_evento']?></td>
+  											<td><?=$not['nombre_eq']?></td>
+  											<td><?=date("d-m-Y",strtotime($not['fecha']))?></td>
+  											<td><?=$not['hora']?></td>
+  										</tr>
+  									<?php endforeach; ?>
+  					
+  							</table>	
+  						</div>
+  						
+  				
+  				<div id="paginador" name="paginador"></div>
+  					<?=$paginador?>
   				</div>
   			</div>
   		</div>

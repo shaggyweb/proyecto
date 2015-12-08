@@ -47,7 +47,8 @@ class controlador_usuarios extends controlador
 			}
 			else
 			{
-				$cuerpo=$this->load->view('login_usuario',0,true);
+				$data['error'] = "<h4><span class='glyphicon glyphicon-warning-sign'></span> Usuario incorrecto</h4>";
+				$cuerpo=$this->load->view('login_usuario',$data,true);
 				$this->Plantilla($cuerpo);
 			}
 				
@@ -128,11 +129,13 @@ class controlador_usuarios extends controlador
 				
 			if($this->mod_usuarios->modificar_usuario($id_jugador,$data))
 			{
-				//$cuerpo=$this->load->view('mod_exito',0,true);
-					
-				//$this->Plantilla($cuerpo);
-	
-				//print_r("Modificacion exitosa");
+				$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se han modificado los datos del usuario correctamente.</h4>";
+				
+				$data['enlace']=base_url();
+				
+				$cuerpo=$this->load->view('mensajes_info',$data,true);
+				
+				$this->Plantilla($cuerpo);
 			}
 		}
 		else
@@ -168,11 +171,13 @@ class controlador_usuarios extends controlador
 				
 			if($this->mod_usuarios->modificar_usuario($id_jugador,$data))
 			{
-				//$cuerpo=$this->load->view('mod_exito',0,true);
-					
-				//$this->Plantilla($cuerpo);
-					
-				//print_r("Modificacion exitosa");
+				$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se han modificado los datos de acceso del usuario correctamente.</h4>";
+				
+				$data['enlace']=base_url();
+				
+				$cuerpo=$this->load->view('mensajes_info',$data,true);
+				
+				$this->Plantilla($cuerpo);
 			}
 		}
 		else
@@ -193,14 +198,14 @@ class controlador_usuarios extends controlador
 	{
 		//Establecimiento de las reglas de validación
 	
-		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email|callback_Email_No_Valido');
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
 	
 	
 	
 		//Edición de los mensajes de error
 		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
 		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
-		$this->form_validation->set_message('Email_No_Valido', 'Error. Campo %s no válido');
+		//$this->form_validation->set_message('Email_No_Valido', 'Error. Campo %s no válido');
 	
 		//da formato a los errores
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
@@ -209,20 +214,40 @@ class controlador_usuarios extends controlador
 		{
 			$email=$this->input->post('email');
 			$query = $this->mod_usuarios->comprobar_mail_usuario($email);
+			
+			if($query)
+			{
 				
-			$jugador=$query['nombre_jugador']." ".$query['apellidos_jugador'];
+				$jugador=$query['nombre_jugador']." ".$query['apellidos_jugador'];
 				
-			$usuario=$query['usuario'];
+				$usuario=$query['usuario'];
 				
-			$num_letras_aleatorias=8;
+				$num_letras_aleatorias=8;
 				
-			$nuevo_pass=$this->generar_clave($num_letras_aleatorias);
+				$nuevo_pass=$this->generar_clave($num_letras_aleatorias);
 				
-			$cod_usuario=$query['idjugador'];
+				$cod_usuario=$query['idjugador'];
 				
-			$this->mod_usuarios->nuevo_password($cod_usuario,$nuevo_pass);
+				$this->mod_usuarios->nuevo_password($cod_usuario,$nuevo_pass);
 				
-			$this->email_reestablecer_pass($usuario,$nuevo_pass,$jugador,$email);
+				$this->email_reestablecer_pass($usuario,$nuevo_pass,$jugador,$email);
+				
+				$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se ha enviado a su e-mail su nuevo password de acceso.</h4>";
+				
+				$data['enlace']=base_url();
+				
+				$cuerpo=$this->load->view('mensajes_info',$data,true);
+				
+				$this->Plantilla($cuerpo);
+			}
+			else
+			{
+				$data['error'] = "<h4><span class='glyphicon glyphicon-warning-sign'></span> E-Mail incorrecto</h4>";
+				
+				$cuerpo=$this->load->view('reestablecer_pass_usuario',$data,true);
+				
+				$this->Plantilla($cuerpo);
+			}
 				
 				
 				

@@ -40,7 +40,7 @@
                     
    					
    										<td align="center">Contraseña:</td>
-   										<td align="center"><input type="text" class ="form-control" name="clave" disabled value="<?=set_value('clave', $usuario[0]['clave']); ?>"/></td>
+   										<td align="center"><input type="password" class ="form-control" name="clave" disabled value="<?=set_value('clave', $usuario[0]['clave']); ?>"/></td>
    										<td><?php echo form_error('clave'); ?></td>
    						
    									</tr>
