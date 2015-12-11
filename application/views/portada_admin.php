@@ -241,14 +241,14 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <span class="glyphicon glyphicon-zoom-in"></span>
+                                    <span class="glyphicon glyphicon-book"></span>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div>Consultar Eventos</div>
+                                    <div>Historial Jugadores</div>
                                 </div>
                             </div>
                         </div>
-                        	<a href="<?=site_url("controlador_eventos/consultar_eventos");?>">
+                        	<a href="<?=site_url("controlador_usuarios/ver_historial");?>">
                             <div class="panel-footer">
                                 <span class="pull-left">Acceder</span> 
                            		<span class="pull-right"><span class="glyphicon glyphicon-circle-arrow-right"></span></span>

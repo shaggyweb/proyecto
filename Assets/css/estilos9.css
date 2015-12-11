@@ -20,6 +20,8 @@
 	color:red;
 }
 
+.centrar {margin: 0 auto;}
+
 .imagen{
 	width: 150px; height: 150px;
 }

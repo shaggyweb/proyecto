@@ -53,7 +53,7 @@
 				
 									
 									<li><a href="<?=site_url("controlador_eventos/anadir_evento");?>"><span class="glyphicon glyphicon-plus-sign"></span> Añadir Evento</a></li>
-									<li><a href="<?=site_url("controlador_eventos/consultar_eventos");?>"><span class="glyphicon glyphicon-zoom-in"></span> Consultar Eventos</a></li>
+									<li><a href="<?=site_url("controlador_eventos/pantalla_buscador");?>"><span class="glyphicon glyphicon-zoom-in"></span> Consultar Eventos</a></li>
 								
 									
            

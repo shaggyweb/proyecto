@@ -97,7 +97,7 @@ class controlador_monitor extends controlador
 		$this->form_validation->set_rules('dni', 'dni', 'trim|required'|'exact_length[9]|callback_DNI_valido');
 		$this->form_validation->set_rules('telefono', 'telefono', 'trim|required');
 		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
-		$this->form_validation->set_rules('foto', 'foto', 'trim|required');
+		//$this->form_validation->set_rules('foto', 'foto', 'trim|required');
 		
 		//Edición de los mensajes de error
 		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
@@ -115,11 +115,11 @@ class controlador_monitor extends controlador
 			$data['dni'] = $this->input->post('dni');
 			$data['telefono'] = $this->input->post('telefono');
 			$data['email'] = $this->input->post('email');
-			$data['foto'] = $this->input->post('foto');
+			//$data['foto'] = $this->input->post('foto');
 			
-			$config['upload_path'] = realpath(APPPATH.'/../Assets/img/');
-			$config['allowed_types'] = 'gif|jpg|png';
-			$this->load->library('upload', $config);
+			//$config['upload_path'] = realpath(APPPATH.'/../Assets/img/');
+			//$config['allowed_types'] = 'gif|jpg|png';
+			//$this->load->library('upload', $config);
 				
 			//print_r($this->upload->data());
 				
@@ -150,8 +150,14 @@ class controlador_monitor extends controlador
 				
 					//print_r("Modificacion exitosa");
 					$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se han modificado correctamente los datos.</h4>";
-					
-					$data['enlace']=base_url("index.php/controlador_monitor/portada_monitor");
+					if ($this->session->userdata('rol')=='a')
+					{
+						$data['enlace']=base_url("index.php/controlador_monitor/portada_administrador");
+					}
+					else if ($this->session->userdata('rol')=='m')
+					{
+						$data['enlace']=base_url("index.php/controlador_monitor/portada_monitor");
+					}
 					
 					$cuerpo=$this->load->view('mensajes_info',$data,true);
 					
@@ -329,6 +335,20 @@ class controlador_monitor extends controlador
 			$this->enviar_datos_acceso($data['usuario'],$data['clave'],$data['email']);
 			//print_r($data);
 			
+			$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se ha añadido correctamente el jugador.</h4>";
+			if ($this->session->userdata('rol')=='a')
+			{
+				$data['enlace']=base_url("index.php/controlador_monitor/portada_administrador");
+			}
+			else if ($this->session->userdata('rol')=='m')
+			{
+				$data['enlace']=base_url("index.php/controlador_monitor/portada_monitor");
+			}
+				
+			$cuerpo=$this->load->view('mensajes_info',$data,true);
+				
+			$this->Plantilla($cuerpo);
+			
 			
 		}
 		else
@@ -364,13 +384,14 @@ class controlador_monitor extends controlador
 		$this->form_validation->set_rules('nombre', 'nombre', 'trim|required');
 		$this->form_validation->set_rules('apellidos', 'apellidos', 'trim|required');
 		$this->form_validation->set_rules('dni', 'dni', 'trim|required'|'exact_length[9]|callback_DNI_valido');
-		$this->form_validation->set_rules('telefono', 'telefono', 'trim|required');
+		$this->form_validation->set_rules('telefono', 'telefono', 'numeric|required');
 		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('rol', 'rol', 'trim|required');
 		//$this->form_validation->set_rules('foto', 'foto', 'trim|required');
 	
 		//Edición de los mensajes de error
 		$this->form_validation->set_message('required', 'Error. Campo %s Requerido');
+		$this->form_validation->set_message('numeric', 'Error. El campo %s debe ser numérico');
 		$this->form_validation->set_message('valid_email', 'Error. Campo %s no válido');
 		$this->form_validation->set_message('DNI_valido', 'Error. Campo %s no válido');
 	
@@ -433,7 +454,7 @@ class controlador_monitor extends controlador
 				$dato['email'] = $this->input->post('email');
 				$dato['rol'] = $this->input->post('rol');
 				$dato['foto'] = $foto;
-				$dato['estado'] = 'A';
+				$dato['activo'] = '1';
 					
 				//print_r($data);
 				$num_letras=8;
@@ -442,6 +463,14 @@ class controlador_monitor extends controlador
 				$this->mod_monitor->alta_monitor($dato);
 					
 				$this->enviar_datos_acceso($dato['usuario'],$dato['clave'],$dato['email']);
+				
+				$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se ha añadido correctamente el monitor.</h4>";
+				
+				$data['enlace']=base_url("index.php/controlador_monitor/portada_administrador");
+				
+				$cuerpo=$this->load->view('mensajes_info',$data,true);
+				
+				$this->Plantilla($cuerpo);
 			}
 		
 				

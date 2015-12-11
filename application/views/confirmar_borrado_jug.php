@@ -17,7 +17,7 @@
                     		<div class="table-responsive">
                 				<table class="table table-striped">
                     		
-                    				<tr><td><button type="button" class="btn btn-success">CONFIRMAR</button>
+                    				<tr><td><a href="<?= site_url('controlador_usuarios/borrado_jugador/'.$jugador[0]['idjugador'])?>"><button type="button" class="btn btn-success">CONFIRMAR</button></a>
                     					<a href="<?= site_url('controlador_monitor/mostrar_plantillas')?>"><button type="button" class="btn btn-danger">CANCELAR</button></a></td>
                     				</tr>
                     		

@@ -340,6 +340,84 @@ class controlador_usuarios extends controlador
 		//print_r('dsdsdsd');
 	}
 	
+	public function borrado_jugador($idjugador)
+	{
+		$this->mod_usuarios->borrar_jugador($idjugador);
+		
+		$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se ha borrado correctamente el jugador.</h4>";
+		
+		$data['enlace']=base_url();
+		
+		$cuerpo=$this->load->view('mensajes_info',$data,true);
+		
+		$this->Plantilla($cuerpo);
+	}
+	
+	public function pantalla_cambio_equipo($id)
+	{
+		$this->form_validation->set_rules('equipos', 'equipos', 'required|callback_control_select');
+		
+		$this->form_validation->set_message('control_select', 'Error. Campo %s no válido');
+		
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+			$idjugador = $this->input->post('idjugador');
+			$equipo=$this->input->post('equipos');
+			
+			$this->mod_usuarios->cambiar_equipo($idjugador,$equipo);
+			
+			$data['mensaje']="<h4><span class='glyphicon glyphicon-ok-sign'></span> Se ha realizado el cambio de equipo correctamente.</h4>";
+			
+			$data['enlace']=base_url("index.php/controlador_monitor/portada_monitor");
+			
+			$cuerpo=$this->load->view('mensajes_info',$data,true);
+			
+			$this->Plantilla($cuerpo);
+			
+			//print_r($idjugador);
+			//print_r($equipo);
+		}
+		else
+		{
+			$categorias['categorias'] = $this->mod_equipos->listar_categorias();
+			
+			$categorias['jugador']=$this->mod_usuarios->buscar_usuario_id($id);
+			
+			$categorias['equipo']=$this->mod_equipos->buscar_equipo_id($categorias['jugador'][0]['idequipo']);
+			
+			//print_r($categorias['equipo']);
+			
+			$cuerpo=$this->load->view('pantalla_cambio_equipo',$categorias,true);
+				
+			$this->Plantilla($cuerpo);
+		}
+	}
+	
+	
+	
+	public function control_select($valor_select)
+	{
+		if (($valor_select==0)||($valor_select==""))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
+	public function ver_historial()
+	{
+		$datos['jugadores']=$this->mod_usuarios->historial();
+		
+
+		$cuerpo=$this->load->view('historial_jugadores',$datos,true);
+		
+		$this->Plantilla($cuerpo);
+	}
 	
 	
 	

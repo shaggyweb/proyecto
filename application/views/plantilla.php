@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= base_url('Assets/css/bootstrap.min.css'); ?>">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('Assets/css/carousel.css'); ?>">
+   
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="<?=base_url('Assets/css/business-casual.css'); ?>">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
@@ -19,22 +19,6 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
      <link rel="stylesheet" type="text/css" href="<?= base_url('Assets/js/funciones.js'); ?>">
-    <script type="text/javascript">
-  $(document).ready(function(){
-    $("#categorias").change(function(){
-    $.ajax({
-      url:"procesa.php",
-      type: "POST",
-      data:"idmarca="+$("#marca").val(),
-      success: function(opciones){
-        $("#modelo").html(opciones);
-      }
-    })
-  });
-});
-</script>
- 
-  
     
   </head>
 
@@ -53,14 +37,6 @@
     <script src="<?= base_url('Assets/js/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('Assets/js/bootstrap.min.js'); ?>"></script>
     
-  
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
-    
     
      <!-- Jquery Functions -->
     <script>
@@ -73,21 +49,7 @@ $(document).ready(function(){
     });
 });
 
-</script>
-    
-    
-    
-  <script>
-$(document).ready(function(){
-    $("#mod_pass").click(function(){
-    	 $(".form-control").removeAttr("disabled");
-    	 $(".btn").removeAttr("disabled");
-    	 $(".foto").removeAttr("disabled");
-    	 $('#habilitar').attr("disabled", true);
-    });
-});
-
-</script>
+</script> 
     
 <script>
 $(document).ready(function(){
@@ -148,31 +110,8 @@ $("#fecha").datepicker();
 });
 
 </script>
-<script type="text/javascript">
-function ajax()
-{
-var conexion;
-if (window.XMLHttpRequest)
-	{
-		conexion=xmlHttp = new XMLHttpRequest();
-	}
-else
-	{
-		conexion=new ActiveXObject("Microsoft.XMLHTTP");
-	}
-conexion.onreadystatechange=function()
-{
-	if(conexion.readyState == 4)
-	{
-		document.getElementById("contenedor"),innerHTML=conexion.responseText;
-	}
-	conexion.open("GET",<?=base_url('index.php/controlador_monitor/mostrar_plantillas?id_equipo')?>)
-}
-  
-}  
 
-</script>
-	<script type="text/javascript">
+<script type="text/javascript">
 		$(document).ready(function() {
 			$("#categoria").change(function() {
 				$("#categoria option:selected").each(function() {
@@ -185,8 +124,9 @@ conexion.onreadystatechange=function()
 				});
 			})
 		});
-	</script>
-	<script type="text/javascript">
+</script>
+
+<script type="text/javascript">
 		$(document).ready(function() {
 			$("#equipos").change(function() {
 				$("#equipos option:selected").each(function() {
@@ -199,31 +139,31 @@ conexion.onreadystatechange=function()
 				});
 			})
 		});
-	</script>
+</script>
 	
 	<script type="text/javascript">
 	$(document).ready(function(){
 	    //utilizamos el evento keyup para coger la información
 	    //cada vez que se pulsa alguna tecla con el foco en el buscador
-	    $(".poblacion").keyup(function(){
+	    $(".descripcion_busca").keyup(function(){
 	 		console.log($(this).html())
 	        //en info tenemos lo que vamos escribiendo en el buscador
 	        var info = $(this).val();
 	        //hacemos la petición al método poblaciones del controlador buscador
 	        //pasando la variable info
-	        $.post("<?=base_url('index.php/controlador_eventos/poblaciones')?>",{ info : info }, function(data){
+	        $.post("<?=base_url('index.php/controlador_eventos/descripcion')?>",{ info : info }, function(data){
 	 
 	            //si autocompletado nos devuelve algo
 	            if(data != '')
 	            {
 	 
 	                //en el div con clase contenedor mostramos la info
-	                $(".muestra_poblaciones").show();
-	                $(".muestra_poblaciones").html(data);
+	                $(".muestra_descripciones").show();
+	                $(".muestra_descripciones").html(data);
 	 				
 	            }else{
 	 
-	                $(".muestra_poblaciones").html('');
+	                $(".muestra_descripciones").html('');
 	 
 	            }
 	        })
@@ -231,9 +171,9 @@ conexion.onreadystatechange=function()
 	    })
 	 
 
-	 	$(".muestra_poblaciones").find("a").live('click',function(e){
+	 	$(".muestra_descripciones").find("a").live('click',function(e){
 			e.preventDefault();
-			$(".muestra_poblaciones").hide();
+			$(".muestra_descripciones").hide();
 		});
 		
 		//al hacer submit al formulario comprobamos que

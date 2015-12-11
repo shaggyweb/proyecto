@@ -39,8 +39,8 @@
                     					<tr>
                     						<td>Consulta por Descripción:
     										<!--este es nuestro autocompletado-->
-											<input type="text" autocomplete="off" onpaste="return false" name="poblacion" 
-											id="poblacion" class="poblacion" placeholder="Buscar por descripción" /></td>
+											<input type="text" autocomplete="off" onpaste="return false" name="descripcion_busca" 
+											id="descripcion_busca" class="descripcion_busca" placeholder="Buscar por descripción" /></td>
 											
 										</tr>
 								
@@ -59,7 +59,7 @@
                   	</form>
                   		
                 </div>
-                <div class="muestra_poblaciones"></div>
+                <div class="muestra_descripciones"></div>
                 <div name="contenedor" id="contenedor">
                 
                 

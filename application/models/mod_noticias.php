@@ -129,7 +129,7 @@ class mod_noticias extends CI_Model {
 	
 	//hacemos la búsqueda de las poblaciones en el
 	//evento keyup de jquery
-	public function buscador_poblacion($abuscar)
+	public function buscador_descripcion($abuscar)
 	{
 		//usamos after para decir que empiece a buscar por
 		//el principio de la cadena

@@ -11,31 +11,67 @@
              
 			</div>	
 			<div name="formulario">
-            	<form method="post" action="<?=base_url('index.php/controlador_eventos/anadir_evento')?>">
-                	<table class="table table-striped">
-                   		<tr>
-							<td align="center">Tipo Evento: </td><td><?=form_dropdown('select_evento', $tipo_evento, set_value('select_evento'));?></td>
-						</tr>
-                    	<tr>
-							<td align="center">Equipo: </td><td><?=form_dropdown('select_equipo', $nombre_equipo, set_value('select_equipo'));?></td>
-						</tr>		
-   						<tr>
-                    		<td align="center">Descripción:</td>
-   							<td align="center"><input type="text" class ="form-control" name="descripcion" value="<?=set_value('descripcion')?>"/></td>
-   							<td><?php echo form_error('descripcion'); ?></td>
-   						</tr>
-   						<tr>
-   							<td align="center">Fecha:</td>
-   							<td align="center"><input type="text" id="fecha" class ="form-control" name="fecha" value="<?=set_value('fecha'); ?>"/></td>
-   							<td><?php echo form_error('fecha'); ?></td>
-   						</tr>				
-   						<tr>
-   							<td align="center">Hora:</td>
-   							<td align="center"><input type="text" class ="form-control" name="hora" value="<?=set_value('hora'); ?>"/></td>
-   							<td><?php echo form_error('hora'); ?></td>	
-   						</tr>
-   							<tr><td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="enviar" value="Añadir Evento"/></td></tr>
-   					</table>
+				<form class="form-horizontal" role="form" method="post" action="<?=base_url('index.php/controlador_eventos/anadir_evento')?>">
+					<!-- Select Basic -->
+						<div class="form-group">
+  							<label class="col-md-4 control-label" for="select_evento">Tipo Evento:</label>
+  							<div class="col-md-4">
+    							<?=form_dropdown('select_evento', $tipo_evento, set_value('select_evento'));?>
+   
+  							</div>
+						</div>
+
+					<!-- Select Basic -->
+						<div class="form-group">
+  							<label class="col-md-4 control-label" for="select_equipo">Equipo:</label>
+  							<div class="col-md-4">
+    							<?=form_dropdown('select_equipo', $nombre_equipo, set_value('select_equipo'));?>
+  							</div>
+						</div>
+
+					<!-- Text input-->
+						<div class="form-group">
+  							<label class="col-md-4 control-label" for="descripcion">Descripción:</label>  
+  							<div class="col-md-8">
+  								<input class="form-control input-md" type="text" name="descripcion" value="<?=set_value('descripcion')?>"/>
+  								
+ 	 						</div>
+ 	 						
+						</div>
+						<?php echo form_error('descripcion'); ?>
+					<!-- Text input-->
+						<div class="form-group">
+  							<label class="col-md-4 control-label" for="fechal">Fecha:</label>  
+  							<div class="col-md-2">
+  								<input id="fecha" name="fecha" class="form-control input-md" type="text" value="<?=set_value('fecha'); ?>">
+    							
+  							</div>
+  							
+						</div>
+						<?php echo form_error('fecha'); ?>
+					<!-- Text input-->
+						<div class="form-group">
+  							<label class="col-md-4 control-label" for="hora">Hora:</label>  
+  							<div class="col-md-1">
+  								<input name="hora" class="form-control input-md" type="text" value="<?=set_value('hora'); ?>">
+    							
+  							</div>
+  							
+						</div>
+						<?php echo form_error('hora'); ?>
+					<!-- Button -->
+					
+
+					<table align="center">
+					<tr><td>
+  					<div class="col-md-4 center-block">
+    					<input type="submit" class="btn btn-primary" name="enviar" value="Añadir Evento">
+  					</div></td></tr>
+  					</table>
+  					
+
+
+  
    				</form>  
    			</div>   				     														
 		</div>

@@ -139,6 +139,13 @@ class mod_equipos extends CI_Model {
 		}
 	}
 	
+	function buscar_equipo_id($id_equipo)
+	{
+		$this->db->where('idequipo',$id_equipo);
+		$consulta= $this->db->get('equipo');
+		return $consulta->result_array();
+	}
+	
 	public function llena_equipos($categoria)
 	{
 		$this->db->where('tipo_equipo',$categoria);

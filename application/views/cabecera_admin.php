@@ -39,13 +39,53 @@
                   		</ul>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-envelope"></span> Admin</a>
+
+                		<li class="dropdown">
+                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-briefcase"></span> Monitores<span class="caret"></span></a>
+                  				<ul class="dropdown-menu">
+                  	
+				
+									
+									<li><a href="<?=site_url("controlador_monitor/anadir_monitor");?>"><span class="glyphicon glyphicon-plus-sign"></span> Añadir Monitor</a></li>
+									<li><a href="<?=site_url("controlador_monitor/listar_monitores_admin");?>"><span class="glyphicon glyphicon-trash"></span> Borrar Monitor</a></li>
+								
+									
+           
+                  		</ul>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-envelope"></span> Mensajes Privados</a>
+<a href="<?=site_url("controlador_mensajes/inicial_mensaje");?>"><span class="glyphicon glyphicon-envelope"></span> Mensajes Privados</a>
 </li>
 <li>
-<a href="<?=site_url("controlador_monitor/pagina_login_monitor");?>"><span class="glyphicon glyphicon-calendar"></span> Eventos</a>
+
+                		<li class="dropdown">
+                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-calendar"></span> Eventos<span class="caret"></span></a>
+                  				<ul class="dropdown-menu">
+                  	
+				
+									
+									<li><a href="<?=site_url("controlador_eventos/anadir_evento");?>"><span class="glyphicon glyphicon-plus-sign"></span> Añadir Evento</a></li>
+									<li><a href="<?=site_url("controlador_eventos/pantalla_buscador");?>"><span class="glyphicon glyphicon-zoom-in"></span> Consultar Eventos</a></li>
+								
+									
+           
+                  		</ul>
+</li>
+<li>
+
+                		<li class="dropdown">
+                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Jugadores<span class="caret"></span></a>
+                  				<ul class="dropdown-menu">
+                  	
+				
+									
+									<li><a href="<?=site_url("controlador_monitor/anadir_jugador");?>"><span class="glyphicon glyphicon-plus-sign"></span> Añadir Jugador</a></li>
+									<li><a href="<?=site_url("controlador_monitor/mostrar_plantillas");?>"><span class="glyphicon glyphicon-th-list"></span> Consultar Plantillas</a></li>
+									<li><a href="<?=site_url("controlador_monitor/mostrar_plantillas");?>"><span class="glyphicon glyphicon-book"></span> Historial Jugadores</a></li>
+								
+									
+           
+                  		</ul>
 </li>
 <li>
 <a href="<?=site_url("controlador_monitor/logout_monitor");?>"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>

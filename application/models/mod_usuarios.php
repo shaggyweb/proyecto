@@ -140,6 +140,29 @@ class mod_usuarios extends CI_Model {
 	}
 	
 	
+	function borrar_jugador($id)
+	{
+		$this->db->where('idjugador', $id);
+		$this->db->delete('jugador');
+	}
+	
+	function cambiar_equipo($idjugador,$idequipo)
+	{
+		$this->db->where('idjugador', $idjugador);
+		$data = array(
+				'idequipo' => $idequipo);
+		
+		$this->db->update('jugador', $data);
+	}
+	
+	function historial()
+	{
+		$consulta = $this->db->get('historial_jugadores');
+		// Produce: SELECT * FROM categorias
+		return $consulta->result_array();
+	}
+	
+	
 	
 	
 	

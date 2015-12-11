@@ -254,7 +254,7 @@ class controlador_eventos extends controlador {
 	}*/
 
 	//a través de jquery llenamos el autocompletado
-	public function poblaciones()
+	public function descripcion()
     {
         //si es una petición ajax y existe una variable post
         //llamada info dejamos pasar
@@ -263,7 +263,7 @@ class controlador_eventos extends controlador {
  
             $abuscar = $this->security->xss_clean($this->input->post('info'));
  
-            $search = $this->mod_noticias->buscador_poblacion($abuscar);
+            $search = $this->mod_noticias->buscador_descripcion($abuscar);
             
             //print_r($search);
  

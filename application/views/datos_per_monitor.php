@@ -93,14 +93,7 @@
    										
    									</tr>
    									
-   									<tr>
-   										<td align="center">Foto:</td>
-   										<td align="center"><input type="text" class ="form-control" name="foto" disabled value="<?=set_value('foto', $monitor[0]['foto']); ?>"/>
-   										<input type="file" name="foto" id="foto" class ="foto" disabled></td>
-   										<td><?php echo form_error('foto'); ?></td>
-   										
    									
-   									</tr>
    									
    									
    									<tr><td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="enviar" value="Enviar Modificaciones" disabled/></td></tr>

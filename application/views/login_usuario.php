@@ -7,8 +7,8 @@
                         <strong>Usuario</strong>
                     </h2>
                     <hr>
-                    	<img class="img-responsive img-border img-left" src="img/intro-pic.jpg" alt="">
-                    		<hr class="visible-xs">
+                    
+                   <hr class="visible-xs">
               <div class="formulario">
               
               	<form method="post" action="<?=base_url('index.php/controlador_usuarios/login_usuario')?>">
